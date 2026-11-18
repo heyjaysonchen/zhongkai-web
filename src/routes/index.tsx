@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit, ShieldCheck, Zap } from "lucide-react";
 import { HeroVisual } from "@/components/site/HeroVisual";
+import tsinghuaSeal from "@/assets/tsinghua-seal.png.asset.json";
+import pekingSeal from "@/assets/peking-university-seal.png.asset.json";
+import ibmLogo from "@/assets/ibm-eight-bar.png.asset.json";
+import sasLogo from "@/assets/sas-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -145,9 +149,16 @@ function Index() {
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHead en="OUR TEAM" title="一支既懂行业、又懂AI技术的团队" />
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            {["清华大学", "北京大学", "IBM", "SAS"].map((b) => (
-              <span key={b} className="rounded-full border border-border bg-card px-6 py-2 text-lg font-bold text-primary">{b}</span>
+          <div aria-label="团队背景机构" className="mx-auto mt-10 grid max-w-3xl grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 sm:gap-x-10">
+            {[
+              { name: "清华大学校徽", asset: tsinghuaSeal, seal: true },
+              { name: "北京大学校徽", asset: pekingSeal, seal: true },
+              { name: "IBM 8-bar Logo", asset: ibmLogo, seal: false },
+              { name: "SAS Logo", asset: sasLogo, seal: false },
+            ].map(({ name, asset, seal }) => (
+              <div key={name} className="flex h-28 min-w-0 items-center justify-center">
+                <img src={asset.url} alt={name} loading="lazy" decoding="async" className={seal ? "h-20 w-20 object-contain" : "h-14 w-32 max-w-full object-contain"} />
+              </div>
             ))}
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
