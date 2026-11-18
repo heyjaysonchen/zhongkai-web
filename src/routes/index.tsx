@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit } from "lucide-react";
+import { ArrowRight, ChevronDown, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit } from "lucide-react";
 import { HeroVisual } from "@/components/site/HeroVisual";
 
 export const Route = createFileRoute("/")({
@@ -46,17 +46,18 @@ const experts = [
 function Index() {
   return (
     <main>
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-soft to-background pb-20 pt-36">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-gradient-to-b from-brand-soft to-background pb-20 pt-28">
+        <div className="pointer-events-none absolute right-[-10%] top-1/2 h-[70vh] w-[70vh] -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-[1fr_1.15fr]">
           <div>
             <p className="text-sm font-medium text-primary">数据 × 本体 × 智能体 · 让 AI 真正创造价值</p>
-            <h1 className="mt-4 text-5xl font-black tracking-tight text-foreground md:text-6xl">
+            <h1 className="mt-6 text-5xl font-black leading-tight tracking-tight text-foreground md:text-6xl xl:text-7xl">
               企业 <span className="text-primary">AI</span> 解决方案
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-8 max-w-xl text-lg leading-loose text-muted-foreground xl:text-xl">
               众凯把数据沉淀为统一底座，以智能体驱动全链路，为金融与央国企提供可信的 AI 解决方案。
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-12 flex flex-wrap gap-4">
               <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 font-medium text-primary-foreground shadow-card transition hover:bg-primary/90">
                 预约演示 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -65,11 +66,15 @@ function Index() {
               </Link>
             </div>
           </div>
-          <HeroVisual />
+          <div className="mx-auto w-full max-w-[760px] drop-shadow-[0_30px_60px_color-mix(in_oklab,var(--primary)_25%,transparent)]"><HeroVisual /></div>
         </div>
+        <a href="#overview" aria-label="向下滚动" className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-primary/70 transition hover:text-primary">
+          <span className="text-[10px] tracking-[0.3em]">SCROLL</span>
+          <ChevronDown className="h-5 w-5 animate-bounce" />
+        </a>
       </section>
 
-      <section className="bg-surface py-24">
+      <section id="overview" className="bg-surface py-24">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHead en="PLATFORM OVERVIEW" title="给企业装上一个懂业务的超级智能大脑"
             desc="众凯企业 AI 平台，以数据编排为起点，通过本体建模构建业务知识图谱，最终实现智能体协同，打造可落地、可治理、可持续的企业级 AI 能力。" />

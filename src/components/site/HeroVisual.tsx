@@ -19,6 +19,10 @@ export function HeroVisual() {
           <stop offset="0%" stopColor="var(--background)" />
           <stop offset="100%" stopColor="var(--brand-soft)" />
         </radialGradient>
+        <radialGradient id="halo">
+          <stop offset="55%" stopColor="var(--primary)" stopOpacity=".35" />
+          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+        </radialGradient>
       </defs>
       {/* base platform */}
       {[150, 120, 90, 60].map((rx, i) => (
@@ -30,6 +34,7 @@ export function HeroVisual() {
       ))}
       <circle cx="300" cy="200" r="40" fill="none" stroke="var(--primary)" className="pulse-ring" />
       <g className="floaty">
+        <circle cx="300" cy="200" r="85" fill="url(#halo)" />
         <circle cx="300" cy="200" r="58" fill="url(#core)" />
         <text x="300" y="212" textAnchor="middle" fontSize="34" fontWeight="700" fill="var(--primary-foreground)">AI</text>
       </g>
