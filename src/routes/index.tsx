@@ -4,7 +4,7 @@ import { HeroVisual } from "@/components/site/HeroVisual";
 import tsinghuaSeal from "@/assets/tsinghua-seal.png.asset.json";
 import pekingSeal from "@/assets/peking-university-seal.png.asset.json";
 import ibmLogo from "@/assets/ibm-eight-bar.png.asset.json";
-import sasLogo from "@/assets/sas-logo.png.asset.json";
+import sasLogo from "@/assets/sas-logo-tight.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -45,6 +45,21 @@ const solutions = [
 const experts = [
   { t: "行业专家", d: "来自金融、央国企等领域的资深专家，深刻理解行业业务与管理逻辑。", tags: ["行业洞察", "业务咨询", "方案设计"], I: Users },
   { t: "AI技术专家", d: "来自清华、北大及 IBM、SAS 的顶尖团队，具备大模型、数据工程与企业级 AI 实践经验。", tags: ["大模型", "数据工程", "AI平台"], I: BrainCircuit },
+];
+
+type Institution = {
+  name: string;
+  asset: { url: string };
+  zh?: string;
+  en?: string;
+  tone?: string;
+};
+
+const institutions: Institution[] = [
+  { name: "清华大学校徽", asset: tsinghuaSeal, zh: "清华大学", en: "Tsinghua University", tone: "text-tsinghua" },
+  { name: "北京大学校徽", asset: pekingSeal, zh: "北京大学", en: "Peking University", tone: "text-peking" },
+  { name: "IBM 8-bar Logo", asset: ibmLogo },
+  { name: "SAS Logo", asset: sasLogo },
 ];
 
 function Index() {
@@ -149,15 +164,21 @@ function Index() {
       <section className="bg-surface py-24">
         <div className="mx-auto max-w-6xl px-6">
           <SectionHead en="OUR TEAM" title="一支既懂行业、又懂AI技术的团队" />
-          <div aria-label="团队背景机构" className="mx-auto mt-10 grid max-w-3xl grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 sm:gap-x-10">
-            {[
-              { name: "清华大学校徽", asset: tsinghuaSeal, seal: true },
-              { name: "北京大学校徽", asset: pekingSeal, seal: true },
-              { name: "IBM 8-bar Logo", asset: ibmLogo, seal: false },
-              { name: "SAS Logo", asset: sasLogo, seal: false },
-            ].map(({ name, asset, seal }) => (
-              <div key={name} className="flex h-28 min-w-0 items-center justify-center">
-                <img src={asset.url} alt={name} loading="lazy" decoding="async" className={seal ? "h-20 w-20 object-contain" : "h-14 w-32 max-w-full object-contain"} />
+          <div aria-label="团队背景机构" className="mx-auto mt-10 grid max-w-5xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:flex sm:flex-wrap sm:justify-between sm:gap-x-10 sm:gap-y-0">
+            {institutions.map((it) => (
+              <div key={it.name} className="flex h-16 min-w-0 items-center justify-center">
+                {it.zh ? (
+                  <div className="flex items-center gap-2 sm:gap-3.5">
+                    <img src={it.asset.url} alt={it.name} loading="lazy" decoding="async" className="h-9 w-9 shrink-0 object-contain sm:h-14 sm:w-14" />
+                    <span aria-hidden className="h-7 w-px shrink-0 bg-border sm:h-11" />
+                    <span className="flex min-w-0 flex-col">
+                      <span className={`font-serif text-base font-bold leading-none tracking-[0.08em] sm:text-2xl ${it.tone}`}>{it.zh}</span>
+                      <span className="mt-1 truncate text-[7px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:mt-2 sm:text-[10px] sm:tracking-[0.2em]">{it.en}</span>
+                    </span>
+                  </div>
+                ) : (
+                  <img src={it.asset.url} alt={it.name} loading="lazy" decoding="async" className="h-8 w-auto max-w-[130px] object-contain sm:h-14 sm:max-w-[190px]" />
+                )}
               </div>
             ))}
           </div>

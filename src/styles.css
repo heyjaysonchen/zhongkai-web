@@ -31,8 +31,11 @@
 
 @theme inline {
   --font-sans: "IBM Plex Sans", "Noto Sans SC", system-ui, sans-serif;
+  --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
   --color-brand-soft: var(--brand-soft);
   --color-surface: var(--surface);
+  --color-tsinghua: var(--tsinghua);
+  --color-peking: var(--peking);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -79,6 +82,8 @@
   --radius: 0.75rem;
   --brand-soft: oklch(0.95 0.03 260);
   --surface: oklch(0.975 0.01 255);
+  --tsinghua: oklch(0.326 0.155 318.5);
+  --peking: oklch(0.406 0.167 29.2);
   --cluster-ink: oklch(0.37 0.15 262);
   --cluster-detail: oklch(0.44 0.09 262);
   --shadow-card: 0 12px 40px -18px color-mix(in oklab, var(--primary) 35%, transparent);
@@ -117,6 +122,8 @@
 }
 
 .dark {
+  --tsinghua: oklch(0.619 0.157 312);
+  --peking: oklch(0.723 0.106 20);
   --cluster-ink: oklch(0.37 0.15 262);
   --cluster-detail: oklch(0.44 0.09 262);
   --background: oklch(0.129 0.042 264.695);
