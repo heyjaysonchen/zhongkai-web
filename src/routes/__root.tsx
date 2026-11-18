@@ -83,10 +83,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "众凯科技 Zhongkai" },
+      { title: "众凯科技" },
       { name: "description", content: "众凯科技企业 AI 解决方案" },
       { name: "author", content: "众凯科技" },
-      { property: "og:title", content: "众凯科技 Zhongkai" },
+      { property: "og:title", content: "众凯科技" },
       { property: "og:description", content: "众凯科技企业 AI 解决方案" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

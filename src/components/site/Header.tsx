@@ -16,10 +16,7 @@ export function Brand({ size = 36 }: { size?: number }) {
   return (
     <Link to="/" className="flex items-center gap-2">
       <img src={logo.url} alt="众凯科技 Logo" width={size} height={size} />
-      <span className="leading-tight">
-        <span className="block text-lg font-bold text-foreground">众凯科技</span>
-        <span className="block text-[10px] tracking-widest text-muted-foreground">ZHONGKAI</span>
-      </span>
+      <span className="text-lg font-bold text-foreground">众凯科技</span>
     </Link>
   );
 }
