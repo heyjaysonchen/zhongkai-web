@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit } from "lucide-react";
+import { ArrowRight, ChevronDown, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit, ShieldCheck, Zap } from "lucide-react";
 import { HeroVisual } from "@/components/site/HeroVisual";
 
 export const Route = createFileRoute("/")({
@@ -64,6 +64,21 @@ function Index() {
                 了解更多
               </Link>
             </div>
+            <ul aria-label="平台特性" className="mt-10 grid grid-cols-1 gap-5 border-t border-primary/15 pt-6 sm:grid-cols-3 sm:gap-4">
+              {[
+                { title: "安全合规", description: "企业级数据安全保障", Icon: ShieldCheck },
+                { title: "高效智能", description: "提升 60%+ 业务效率", Icon: Zap },
+                { title: "灵活可扩展", description: "支持私有化与多云部署", Icon: Layers },
+              ].map(({ title, description, Icon }) => (
+                <li key={title} className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <Icon aria-hidden="true" className="h-[18px] w-[18px] shrink-0 text-primary" strokeWidth={1.7} />
+                    <span className="text-sm font-semibold text-foreground">{title}</span>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{description}</p>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="mx-auto w-full max-w-[760px]"><HeroVisual /></div>
         </div>
