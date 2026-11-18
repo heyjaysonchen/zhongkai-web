@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit, ShieldCheck, Zap } from "lucide-react";
 import { HeroVisual } from "@/components/site/HeroVisual";
-import tsinghuaSeal from "@/assets/tsinghua-seal.png.asset.json";
-import pekingSeal from "@/assets/peking-university-seal.png.asset.json";
+import tsinghuaCombo from "@/assets/tsinghua-university-combo.png.asset.json";
+import pekingCombo from "@/assets/peking-university-combo.png.asset.json";
 import ibmLogo from "@/assets/ibm-eight-bar.png.asset.json";
 import sasLogo from "@/assets/sas-logo-tight.png.asset.json";
 
@@ -47,19 +47,11 @@ const experts = [
   { t: "AI技术专家", d: "来自清华、北大及 IBM、SAS 的顶尖团队，具备大模型、数据工程与企业级 AI 实践经验。", tags: ["大模型", "数据工程", "AI平台"], I: BrainCircuit },
 ];
 
-type Institution = {
-  name: string;
-  asset: { url: string };
-  zh?: string;
-  en?: string;
-  tone?: string;
-};
-
-const institutions: Institution[] = [
-  { name: "清华大学校徽", asset: tsinghuaSeal, zh: "清华大学", en: "Tsinghua University", tone: "text-tsinghua" },
-  { name: "北京大学校徽", asset: pekingSeal, zh: "北京大学", en: "Peking University", tone: "text-peking" },
-  { name: "IBM 8-bar Logo", asset: ibmLogo },
-  { name: "SAS Logo", asset: sasLogo },
+const institutions = [
+  { name: "清华大学官方标识", asset: tsinghuaCombo },
+  { name: "北京大学官方标识", asset: pekingCombo },
+  { name: "IBM 官方标识", asset: ibmLogo },
+  { name: "SAS 官方标识", asset: sasLogo },
 ];
 
 function Index() {
@@ -167,18 +159,7 @@ function Index() {
           <div aria-label="团队背景机构" className="mx-auto mt-10 grid max-w-5xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:flex sm:flex-wrap sm:justify-between sm:gap-x-10 sm:gap-y-0">
             {institutions.map((it) => (
               <div key={it.name} className="flex h-16 min-w-0 items-center justify-center">
-                {it.zh ? (
-                  <div className="flex items-center gap-2 sm:gap-3.5">
-                    <img src={it.asset.url} alt={it.name} loading="lazy" decoding="async" className="h-9 w-9 shrink-0 object-contain sm:h-14 sm:w-14" />
-                    <span aria-hidden className="h-7 w-px shrink-0 bg-border sm:h-11" />
-                    <span className="flex min-w-0 flex-col">
-                      <span className={`font-serif text-base font-bold leading-none tracking-[0.08em] sm:text-2xl ${it.tone}`}>{it.zh}</span>
-                      <span className="mt-1 truncate text-[7px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:mt-2 sm:text-[10px] sm:tracking-[0.2em]">{it.en}</span>
-                    </span>
-                  </div>
-                ) : (
-                  <img src={it.asset.url} alt={it.name} loading="lazy" decoding="async" className="h-8 w-auto max-w-[130px] object-contain sm:h-14 sm:max-w-[190px]" />
-                )}
+                <img src={it.asset.url} alt={it.name} loading="lazy" decoding="async" className="h-9 w-auto max-w-[150px] object-contain sm:h-14 sm:max-w-[210px]" />
               </div>
             ))}
           </div>
