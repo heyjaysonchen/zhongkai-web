@@ -47,7 +47,6 @@ function Index() {
   return (
     <main>
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-gradient-to-b from-brand-soft to-background pb-20 pt-28">
-        <div className="pointer-events-none absolute right-[-10%] top-1/2 h-[70vh] w-[70vh] -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-[1fr_1.15fr]">
           <div>
             <p className="text-sm font-medium text-primary">数据 × 本体 × 智能体 · 让 AI 真正创造价值</p>
@@ -66,7 +65,7 @@ function Index() {
               </Link>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-[760px] drop-shadow-[0_30px_60px_color-mix(in_oklab,var(--primary)_25%,transparent)]"><HeroVisual /></div>
+          <div className="mx-auto w-full max-w-[760px]"><HeroVisual /></div>
         </div>
         <a href="#overview" aria-label="向下滚动" className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-primary/70 transition hover:text-primary">
           <span className="text-[10px] tracking-[0.3em]">SCROLL</span>

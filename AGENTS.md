@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep the hero cluster artwork and its HTML/Lucide overlays in one fixed-aspect-ratio coordinate container so labels remain aligned to the image at every screen size.

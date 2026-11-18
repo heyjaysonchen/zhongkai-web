@@ -79,6 +79,8 @@
   --radius: 0.75rem;
   --brand-soft: oklch(0.95 0.03 260);
   --surface: oklch(0.975 0.01 255);
+  --cluster-ink: oklch(0.37 0.15 262);
+  --cluster-detail: oklch(0.44 0.09 262);
   --shadow-card: 0 12px 40px -18px color-mix(in oklab, var(--primary) 35%, transparent);
   --background: oklch(1 0 0);
   --foreground: oklch(0.22 0.04 262);
@@ -115,6 +117,8 @@
 }
 
 .dark {
+  --cluster-ink: oklch(0.37 0.15 262);
+  --cluster-detail: oklch(0.44 0.09 262);
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
@@ -170,3 +174,45 @@
 .spin-slow { animation: spin-slow 40s linear infinite; transform-origin: center; transform-box: fill-box; }
 @keyframes pulse-ring { 0% { r: 40; opacity: .6 } 100% { r: 120; opacity: 0 } }
 .pulse-ring { animation: pulse-ring 3s ease-out infinite; }
+
+.hero-cluster { position: relative; width: 100%; aspect-ratio: 828 / 768; isolation: isolate; }
+.hero-cluster-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+.hero-cluster-node { position: absolute; width: 16%; aspect-ratio: 1; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--cluster-ink); outline: none; }
+.hero-cluster-label { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; letter-spacing: 0; transition: transform 240ms ease; }
+.hero-cluster-label svg { width: 23px; height: 23px; stroke-width: 1.7; margin-bottom: 2px; }
+.hero-cluster-label strong { font-size: 15px; line-height: 1.3; white-space: nowrap; font-weight: 650; }
+.hero-cluster-label span { font-size: 10px; line-height: 1.5; white-space: nowrap; color: var(--cluster-detail); }
+.hero-cluster-node:hover .hero-cluster-label, .hero-cluster-node:focus-visible .hero-cluster-label { transform: translateY(-4px) scale(1.04); }
+.hero-cluster-node:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.hero-cluster-core { left: 52.3%; top: 46.4%; width: 24%; color: var(--primary-foreground); }
+.hero-cluster-core .hero-cluster-label svg { width: 34px; height: 34px; stroke-width: 1.6; }
+.hero-cluster-core strong { font-size: 19px; }
+.hero-cluster-core span { color: var(--primary-foreground); font-size: 11px; }
+.hero-cluster-documents { left: 41.4%; top: 14.5%; }
+.hero-cluster-people { left: 74%; top: 21.6%; }
+.hero-cluster-products { left: 87.4%; top: 49.6%; }
+.hero-cluster-business { left: 69.6%; top: 73.2%; }
+.hero-cluster-data { left: 31%; top: 67.6%; }
+.hero-cluster-knowledge { left: 20.3%; top: 35.2%; }
+@media (max-width: 1199px) {
+  .hero-cluster-label { gap: 2px; }
+  .hero-cluster-label svg { width: 19px; height: 19px; margin-bottom: 0; }
+  .hero-cluster-label strong { font-size: 13px; }
+  .hero-cluster-label span { font-size: 9px; }
+  .hero-cluster-core .hero-cluster-label svg { width: 27px; height: 27px; }
+  .hero-cluster-core strong { font-size: 16px; }
+  .hero-cluster-core span { font-size: 10px; }
+}
+@media (max-width: 479px) {
+  .hero-cluster-label { gap: 1px; }
+  .hero-cluster-label svg { width: 16px; height: 16px; }
+  .hero-cluster-label strong { font-size: 11px; }
+  .hero-cluster-label span { font-size: 8px; }
+  .hero-cluster-core .hero-cluster-label svg { width: 22px; height: 22px; }
+  .hero-cluster-core strong { font-size: 13px; }
+  .hero-cluster-core span { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cluster-label { transition: none; }
+  .hero-cluster-node:hover .hero-cluster-label, .hero-cluster-node:focus-visible .hero-cluster-label { transform: none; }
+}
