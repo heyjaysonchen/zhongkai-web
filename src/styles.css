@@ -175,6 +175,15 @@
 .solutions-hero { background: linear-gradient(110deg, var(--background), var(--brand-soft)); }
 .solutions-cta { background: linear-gradient(110deg, var(--brand-soft), var(--surface)); }
 .solution-capability { box-shadow: 0 2px 12px color-mix(in oklab, var(--foreground) 4%, transparent); }
+.about-page { letter-spacing: 0; }
+.about-hero { background: linear-gradient(120deg, var(--brand-soft), var(--background) 65%, var(--surface)); }
+.about-company-facts { background: color-mix(in oklab, var(--surface) 65%, var(--background)); }
+.about-focus-card, .about-capability { background: linear-gradient(150deg, var(--background), var(--surface)); }
+.about-team { background: linear-gradient(130deg, var(--surface), var(--brand-soft)); }
+.about-expert { background: color-mix(in oklab, var(--background) 78%, transparent); backdrop-filter: blur(16px); }
+.about-cube { animation: about-float 7s ease-in-out infinite; }
+@keyframes about-float { 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .about-cube { animation: none; } }
 @keyframes dash { to { stroke-dashoffset: -40; } }
 .flow-line { stroke-dasharray: 6 8; animation: dash 1.6s linear infinite; }
 @keyframes floaty { 50% { transform: translateY(-8px); } }

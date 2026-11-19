@@ -31,3 +31,4 @@ use the editor.
 
 - Keep the hero cluster artwork and its HTML/Lucide overlays in one fixed-aspect-ratio coordinate container so labels remain aligned to the image at every screen size.
 - Keep industry solution copy in a shared browser-safe data module and render its overview and detail views from that source so content remains consistent.
+- Keep About-page narratives and its typed-inferred presentation lists local to the About leaf route; its supplied 3D artwork is rendered from CDN asset pointers so media stays out of the source repository.
