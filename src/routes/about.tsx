@@ -3,10 +3,10 @@ import { useState } from "react";
 import { ArrowRight, Crosshair, Fingerprint, GitBranch, Layers, Network, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import cube from "@/assets/about_hero_3d_ai_cube_complete-v2.png.asset.json";
-import dataIcon from "@/assets/about_icon_data_orchestration-v2.png.asset.json";
-import ontologyIcon from "@/assets/about_icon_ontology_graph-v2.png.asset.json";
-import agentIcon from "@/assets/about_icon_multi_agent-v2.png.asset.json";
+import cube from "@/assets/about_hero_3d_city_soft_bokeh.png.asset.json";
+import dataIcon from "@/assets/about_icon_data_orchestration_v2.png.asset.json";
+import ontologyIcon from "@/assets/about_icon_ontology_graph_v2.png.asset.json";
+import agentIcon from "@/assets/about_icon_multi_agent_v2.png.asset.json";
 import zhang from "@/assets/expert_zhang_portrait.jpg.asset.json";
 import li from "@/assets/expert_li_portrait.jpg.asset.json";
 import wang from "@/assets/expert_wang_portrait.jpg.asset.json";
@@ -66,7 +66,7 @@ function AboutPage() {
               {[{ value: "2023", unit: "年", label: "公司设立·北京" }, { value: "300+", label: "行业客户" }, { value: "100+", label: "核心技术与专利" }, { value: "50+", label: "顶尖科研人才" }].map(item => <li key={item.value}><strong>{item.value}<span>{item.unit}</span></strong><p>{item.label}</p></li>)}
             </ul>
           </div>
-          <div className="about-hero-art"><img src={cube.url} alt="完整的全息 AI 决策魔方，带悬浮卡片与底座光环" width={1024} height={1024} fetchPriority="high" decoding="async" className="about-cube" /></div>
+          <div className="about-hero-art"><img src={cube.url} alt="多层水晶 AI 决策魔方悬浮于柔和虚化的城市天际线前，核心发光，四周环绕悬浮数据卡片" width={1616} height={976} fetchPriority="high" decoding="async" className="about-cube" /></div>
         </div>
       </section>
 
