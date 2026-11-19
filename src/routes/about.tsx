@@ -29,9 +29,14 @@ export const Route = createFileRoute("/about")({
 });
 
 const experts = [
-  { name: "张明远", title: "首席科学家", photo: zhang, background: ["清华大学计算机系博士", "前 IBM 研究院首席研究员"] },
-  { name: "李思涵", title: "首席数据科学家", photo: li, background: ["北京大学人工智能博士", "SAS 前高级研究科学家"] },
-  { name: "王建国", title: "首席架构师", photo: wang, background: ["IBM 前杰出工程师", "分布式系统与大数据专家"] },
+  { name: "张明远", title: "创始人兼 CEO", photo: zhang, background: ["清华大学计算机系博士", "前 IBM 研究院首席研究员"] },
+  { name: "李思涵", title: "行业专家", photo: li, background: ["北京大学人工智能博士", "SAS 前高级研究科学家"] },
+  { name: "王建国", title: "AI 技术专家", photo: wang, background: ["IBM 前杰出工程师", "分布式系统与大数据专家"] },
+];
+const teamDna = [
+  { title: "名校科研基因", text: "核心成员来自清华、北大，长期深耕机器学习与知识工程。", Icon: Sparkles },
+  { title: "国际一线实战", text: "IBM、SAS 多年企业级交付经验，熟悉金融与央国企系统。", Icon: Network },
+  { title: "行业 × AI 双轨", text: "懂监管口径与业务语义，也懂大模型与智能体工程落地。", Icon: Layers },
 ];
 const capabilities = [
   { title: "数据编排", en: "Data Orchestration", description: "打通多源异构数据，构建高质量、可控的数据流通体系。", asset: sceneData, tags: ["多源融合", "高质量数据", "可控流通"] },
@@ -79,9 +84,12 @@ function AboutPage() {
             <div className="about-logos" aria-label="产学研协同机构">
               {[{ name: "清华大学", asset: tsinghua }, { name: "北京大学", asset: peking }, { name: "IBM", asset: ibm }, { name: "SAS", asset: sas }].map(item => <div className="about-logo-card" key={item.name}><img src={item.asset.url} alt={`${item.name}官方标识`} loading="lazy" decoding="async" /></div>)}
             </div>
+            <ul className="about-dna" aria-label="团队基因">
+              {teamDna.map(({ title, text, Icon }) => <li key={title}><span><Icon aria-hidden="true" /></span><div><h3>{title}</h3><p>{text}</p></div></li>)}
+            </ul>
           </div>
-          <div className="min-w-0">
-            <div className="about-team-heading"><h2>顶尖科研团队</h2><Button variant="link" className="h-auto shrink-0 p-0 text-xs" onClick={() => setDetail({ type: "team" })}>查看更多 <ArrowRight aria-hidden="true" /></Button></div>
+          <div className="min-w-0 about-team-col">
+            <div className="about-team-heading"><h2>创业团队</h2><Button variant="link" className="h-auto shrink-0 p-0 text-xs" onClick={() => setDetail({ type: "team" })}>查看更多 <ArrowRight aria-hidden="true" /></Button></div>
             <div className="about-experts">
               {experts.map((expert, index) => <article key={expert.name} className="about-expert group">
                 <div className="about-portrait"><img src={expert.photo.url} alt={`${expert.name}博士肖像`} width={164} height={102} loading="lazy" decoding="async" /></div>
@@ -107,7 +115,7 @@ function AboutPage() {
       </section>
       <section className="about-quote-band"><div className="about-container"><p className="about-eyebrow">众凯决策智能平台</p><blockquote>真正意义上的数字化，不是把报表搬到屏幕上，<br className="hidden md:block" />而是让每一次业务决策都<span className="text-primary">信得过、可追溯、能执行。</span></blockquote></div></section>
 
-      <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}><DialogContent className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"><DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : selectedCapability?.title ?? (detail?.type === "team" ? "顶尖科研团队" : "三大核心能力底座")}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : selectedCapability ? selectedCapability.description : detail?.type === "team" ? "产学研深度融合，连接前沿科研与生产级工程实践。" : "以数据为基，以知识为脉，以智能体为翼。"}</DialogDescription></DialogHeader>
+      <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}><DialogContent className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"><DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : selectedCapability?.title ?? (detail?.type === "team" ? "创业团队" : "三大核心能力底座")}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : selectedCapability ? selectedCapability.description : detail?.type === "team" ? "产学研深度融合，连接前沿科研与生产级工程实践。" : "以数据为基，以知识为脉，以智能体为翼。"}</DialogDescription></DialogHeader>
         {selectedExpert && <div className="flex flex-col gap-6 sm:flex-row"><div className="about-portrait w-full shrink-0 rounded-lg sm:w-52"><img src={selectedExpert.photo.url} alt={`${selectedExpert.name}博士肖像`} /></div><ul className="space-y-3 self-center text-sm leading-7">{selectedExpert.background.map(line => <li key={line}>{line}</li>)}</ul></div>}
         {detail?.type === "team" && <div className="space-y-5">{experts.map(expert => <div key={expert.name} className="border-b border-border pb-5 last:border-0"><h3 className="font-semibold">{expert.name}博士 · {expert.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{expert.background.join(" · ")}</p></div>)}</div>}
         {selectedCapability && <div className="flex flex-col items-center gap-5 sm:flex-row"><img src={selectedCapability.asset.url} alt={selectedCapability.title} className="aspect-[1704/923] w-full max-w-sm rounded-md object-cover" /><ul className="space-y-3 text-sm">{selectedCapability.tags.map(tag => <li className="flex items-center gap-2" key={tag}><ShieldCheck className="h-4 w-4 text-primary" />{tag}</li>)}</ul></div>}
