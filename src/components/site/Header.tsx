@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import logo from "@/assets/zhongkai_logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { to: "/", label: "首页" },
-  { to: "/products", label: "产品", drop: true },
-  { to: "/solutions", label: "解决方案", drop: true },
+  { to: "/products", label: "产品" },
+  { to: "/solutions", label: "解决方案" },
   { to: "/about", label: "关于我们" },
   { to: "/contact", label: "联系我们" },
 ] as const;
@@ -50,7 +49,6 @@ export function SiteHeader() {
               className="flex items-center gap-1 text-sm font-medium text-foreground/80 transition-colors hover:text-primary data-[status=active]:text-primary"
             >
               {n.label}
-              {"drop" in n && <ChevronDown className="h-3.5 w-3.5" />}
             </Link>
           ))}
         </nav>
