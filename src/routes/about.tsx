@@ -110,7 +110,7 @@ function AboutPage() {
 
       <section className="about-contact-band" aria-labelledby="contact-title">
         <div className="about-container">
-          <h2 id="contact-title" className="sr-only">联系我们</h2>
+          <h2 id="contact-title" className="about-contact-heading">联系我们</h2>
           <div className="about-contact-grid">
             <article className="about-contact-card">
               <span className="about-semantic-icon"><Mail aria-hidden="true" /></span>
