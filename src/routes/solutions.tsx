@@ -65,8 +65,8 @@ function SolutionsPage() {
                 <Button variant="link" className="ml-[68px] shrink-0 px-0 sm:ml-0" aria-label={`了解更多：${solution.title}`} onClick={() => setSelected({ solution })}>了解更多 <ArrowRight aria-hidden="true" /></Button>
               </div>
               <div className="grid items-stretch gap-5 lg:grid-cols-[270px_1fr]">
-                <aside className="rounded-lg bg-challenge px-5 py-5" aria-label={`${solution.title}常见困难`}>
-                  <h3 className="flex items-center gap-2 text-base font-semibold"><CircleAlert className="h-5 w-5 text-challenge-foreground" aria-hidden="true" />常见困难</h3>
+                <aside className="rounded-lg bg-challenge px-5 py-5" aria-label={`${solution.title}业务痛点`}>
+                  <h3 className="flex items-center gap-2 text-base font-semibold"><CircleAlert className="h-5 w-5 text-challenge-foreground" aria-hidden="true" />业务痛点</h3>
                   <ul className="mt-5 space-y-5">
                     {solution.problems.map((problem) => <li key={problem.title} className="flex items-start gap-3"><FileSearch className="mt-0.5 h-4 w-4 shrink-0 text-challenge-foreground" aria-hidden="true" /><div><h4 className="text-sm font-semibold leading-5">{problem.title}</h4><p className="mt-1 text-xs leading-5 text-muted-foreground">{problem.description}</p></div></li>)}
                   </ul>
