@@ -38,9 +38,9 @@ const steps = [
   { n: "03", t: "智能体协同", d: "多智能体协同作业，贯通业务流程，驱动全链路智能化运营。", I: Bot },
 ];
 const solutions = [
-  { t: "金融 AI", d: "赋能银行、证券、保险等金融机构，提升风控、合规、营销与运营效率。", tags: ["智能风控", "合规审查", "智能投研", "客户服务"], I: Landmark },
-  { t: "SAS 软件国产替换解决方案", d: "基于国产化技术栈，提供 SAS 全栈替换与迁移服务，保障业务连续性与安全。", tags: ["数据分析", "模型迁移", "国产化适配", "运维支持"], I: Layers },
-  { t: "央国企 AI", d: "助力央国企数字化转型，打造安全可控、自主可控的 AI 应用体系。", tags: ["国资监管", "智慧运营", "专业化管理", "知识库"], I: Building2 },
+  { hash: "finance", t: "金融 AI", d: "赋能银行、证券、保险等金融机构，提升风控、合规、营销与运营效率。", tags: ["智能风控", "合规审查", "智能投研", "客户服务"], I: Landmark },
+  { hash: "sas-migration", t: "SAS 软件国产替换解决方案", d: "基于国产化技术栈，提供 SAS 全栈替换与迁移服务，保障业务连续性与安全。", tags: ["数据分析", "模型迁移", "国产化适配", "运维支持"], I: Layers },
+  { hash: "central-soe", t: "央国企 AI", d: "助力央国企数字化转型，打造安全可控、自主可控的 AI 应用体系。", tags: ["国资监管", "智慧运营", "专业化管理", "知识库"], I: Building2 },
 ];
 const experts = [
   { t: "行业专家", d: "来自金融、央国企等领域的资深专家，深刻理解行业业务与管理逻辑。", tags: ["行业洞察", "业务咨询", "方案设计"], I: Users },
@@ -144,7 +144,7 @@ function Index() {
                 <div className="mt-5 flex flex-wrap gap-2">
                   {s.tags.map((t) => <span key={t} className="rounded-full border border-primary/20 bg-brand-soft px-3 py-1 text-xs text-primary">{t}</span>)}
                 </div>
-                <Link to="/solutions" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                <Link to="/solutions" hash={s.hash} hashScrollIntoView={{ block: "start" }} className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary">
                   查看方案 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
