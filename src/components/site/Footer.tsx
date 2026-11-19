@@ -39,7 +39,7 @@ export function SiteFooter() {
             <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
               <img src={wechatQr.url} alt="众凯科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">官方微信公众号</p>
+            <p className="mt-2 text-xs text-muted-foreground">欢迎关注公众号</p>
           </div>
         </div>
       </div>
