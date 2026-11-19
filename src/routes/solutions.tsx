@@ -1,16 +1,119 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PageSkeleton } from "@/components/site/PageSkeleton";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowRight, CircleAlert, FileSearch, ShieldCheck, TrendingUp, Check, ChevronRight } from "lucide-react";
+import architecture from "@/assets/solutions_hero_architecture.png.asset.json";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { industrySolutions, type IndustrySolution, type SolutionCapability } from "@/components/site/solution-content";
 
 export const Route = createFileRoute("/solutions")({
   head: () => ({
     meta: [
-      { title: "解决方案 | 众凯科技" },
-      { name: "description", content: "面向金融与央国企的可落地 AI 解决方案。" },
-      { property: "og:title", content: "解决方案 | 众凯科技" },
-      { property: "og:description", content: "面向金融与央国企的可落地 AI 解决方案。" },
+      { title: "金融、SAS 国产替换与央国企 AI 解决方案 | 众凯科技" },
+      { name: "description", content: "以统一数据底座驱动金融与央国企决策升级，提供金融 AI、SAS 软件国产替换和央国企 AI 解决方案，支持结果复算、迁移回退与本地化部署。" },
+      { property: "og:title", content: "行业解决方案 | 众凯科技" },
+      { property: "og:description", content: "聚焦金融 AI、SAS 软件国产替换与央国企 AI，以数据、本体和智能体驱动可信业务决策。" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <PageSkeleton en="SOLUTIONS" title="解决方案" desc="面向金融与央国企的可落地 AI 解决方案。" />,
+  component: SolutionsPage,
 });
+
+type SelectedDetail = { solution: IndustrySolution; capability?: SolutionCapability };
+
+function SolutionsPage() {
+  const [selected, setSelected] = useState<SelectedDetail | null>(null);
+  return (
+    <main>
+      <section className="solutions-hero overflow-hidden pb-10 pt-28 lg:pb-8 lg:pt-32">
+        <div className="mx-auto max-w-6xl px-6">
+          <nav aria-label="面包屑" className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Button asChild variant="link" className="h-auto p-0 text-xs text-muted-foreground"><Link to="/">首页</Link></Button>
+            <ChevronRight className="h-3 w-3" aria-hidden="true" /><span aria-current="page">解决方案</span>
+          </nav>
+          <div className="mt-6 grid items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-6">
+            <div>
+              <h1 className="text-3xl font-bold leading-snug text-foreground sm:text-4xl lg:text-[42px]">金融与央国企决策场景</h1>
+              <p className="mt-3 text-xs font-medium text-muted-foreground">INDUSTRY SOLUTIONS</p>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">用同一套企业超级智能大脑，解决金融与央国企决策难题，实现存量软件平滑国产替换。</p>
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-xs text-muted-foreground" aria-label="方案价值">
+                {[
+                  { Icon: FileSearch, title: "更可靠的行业智能" },
+                  { Icon: ShieldCheck, title: "更安全的自主可控" },
+                  { Icon: TrendingUp, title: "更高的业务价值" },
+                ].map(({ Icon, title }) => <li key={title} className="flex items-center gap-2"><Icon className="h-4 w-4 text-primary" aria-hidden="true" />{title}</li>)}
+              </ul>
+            </div>
+            <img src={architecture.url} alt="企业应用、AI 与代码迁移引擎、统一数据底座组成的三层解决方案架构" width="987" height="721" fetchPriority="high" className="mx-auto block h-auto w-full max-w-[460px] object-contain" />
+          </div>
+        </div>
+      </section>
+
+      <div className="bg-surface py-8 lg:py-10">
+        <div className="mx-auto max-w-6xl space-y-10 px-6 lg:space-y-12">
+          {industrySolutions.map((solution) => (
+            <section key={solution.id} id={solution.id} aria-labelledby={`${solution.id}-title`} className="scroll-mt-24 border-b border-border pb-10 last:border-0 last:pb-0">
+              <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex min-w-0 basis-full items-center gap-3 sm:basis-auto sm:flex-1">
+                  <img src={solution.badge} alt="" width="64" height="64" loading="lazy" className="h-14 w-14 shrink-0 object-contain sm:h-16 sm:w-16" />
+                  <div className="min-w-0">
+                    <h2 id={`${solution.id}-title`} className="text-xl font-bold leading-snug text-foreground sm:text-2xl">{solution.title}</h2>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{solution.description}</p>
+                  </div>
+                </div>
+                <Button variant="link" className="ml-[68px] shrink-0 px-0 sm:ml-0" aria-label={`了解更多：${solution.title}`} onClick={() => setSelected({ solution })}>了解更多 <ArrowRight aria-hidden="true" /></Button>
+              </div>
+              <div className="grid items-stretch gap-5 lg:grid-cols-[270px_1fr]">
+                <aside className="rounded-lg bg-challenge px-5 py-5" aria-label={`${solution.title}常见困难`}>
+                  <h3 className="flex items-center gap-2 text-base font-semibold"><CircleAlert className="h-5 w-5 text-challenge-foreground" aria-hidden="true" />常见困难</h3>
+                  <ul className="mt-5 space-y-5">
+                    {solution.problems.map((problem) => <li key={problem.title} className="flex items-start gap-3"><FileSearch className="mt-0.5 h-4 w-4 shrink-0 text-challenge-foreground" aria-hidden="true" /><div><h4 className="text-sm font-semibold leading-5">{problem.title}</h4><p className="mt-1 text-xs leading-5 text-muted-foreground">{problem.description}</p></div></li>)}
+                  </ul>
+                </aside>
+                <div className="min-w-0">
+                  <p className="mb-4 rounded-md bg-brand-soft px-4 py-3 text-sm font-semibold leading-6 text-primary sm:text-base">{solution.outcome}</p>
+                  <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                    {solution.capabilities.map((capability) => (
+                      <article key={capability.title} className="solution-capability group flex min-w-0 flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/40">
+                        <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-soft text-primary"><capability.Icon className="h-6 w-6" strokeWidth={1.7} aria-hidden="true" /></div>
+                        <h3 className="text-sm font-semibold leading-6">{capability.title}</h3>
+                        <p className="mb-3 mt-2 flex-1 text-xs leading-6 text-muted-foreground">{capability.description}</p>
+                        <Button variant="ghost" size="icon" className="-ml-2 text-primary" aria-label={`查看${capability.title}`} onClick={() => setSelected({ solution, capability })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+
+      <section className="solutions-cta border-y border-primary/10 py-12">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-7 px-6 md:flex-row md:items-center">
+          <div><h2 className="text-2xl font-bold leading-snug sm:text-3xl">统一底座，驱动行业决策升级</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">用 AI 重构数据价值，让更好的决策，创造更大的社会价值。</p></div>
+          <Button asChild size="lg" className="h-12 shrink-0"><Link to="/contact">预约专属行业方案演示 <ArrowRight aria-hidden="true" /></Link></Button>
+        </div>
+      </section>
+
+      <Dialog open={selected !== null} onOpenChange={(open) => { if (!open) setSelected(null); }}>
+        <DialogContent className="max-h-[85svh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-lg p-6 sm:p-8">
+          {selected && <>
+            <DialogHeader className="pr-6 text-left">
+              <p className="mb-2 text-xs font-medium text-primary">{selected.solution.title}</p>
+              <DialogTitle className="text-xl leading-normal">{selected.capability?.title ?? selected.solution.outcome}</DialogTitle>
+              <DialogDescription className="pt-3 leading-7">{selected.capability?.detail ?? selected.solution.description}</DialogDescription>
+            </DialogHeader>
+            {!selected.capability && <ul className="space-y-4 border-t border-border pt-5">{selected.solution.capabilities.map((capability) => <li key={capability.title} className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden="true" /><div><h3 className="text-sm font-semibold">{capability.title}</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">{capability.detail}</p></div></li>)}</ul>}
+            <div className="mt-2 border-t border-border pt-5">
+              <h3 className="mb-4 text-sm font-semibold">实施路径</h3>
+              <ol className="space-y-4">{selected.solution.delivery.map((step, index) => <li key={step.title} className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-soft text-xs font-semibold text-primary">{index + 1}</span><div><h4 className="text-sm font-semibold">{step.title}</h4><p className="mt-1 text-xs leading-6 text-muted-foreground">{step.description}</p></div></li>)}</ol>
+            </div>
+            <Button asChild className="mt-4 justify-self-start"><Link to="/contact">咨询行业方案 <ArrowRight aria-hidden="true" /></Link></Button>
+          </>}
+        </DialogContent>
+      </Dialog>
+    </main>
+  );
+}

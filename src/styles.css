@@ -33,6 +33,8 @@
   --font-sans: "IBM Plex Sans", "Noto Sans SC", system-ui, sans-serif;
   --color-brand-soft: var(--brand-soft);
   --color-surface: var(--surface);
+  --color-challenge: var(--challenge);
+  --color-challenge-foreground: var(--challenge-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -79,6 +81,8 @@
   --radius: 0.75rem;
   --brand-soft: oklch(0.95 0.03 260);
   --surface: oklch(0.975 0.01 255);
+  --challenge: oklch(0.978 0.009 18);
+  --challenge-foreground: oklch(0.57 0.135 18);
   --cluster-ink: oklch(0.37 0.15 262);
   --cluster-detail: oklch(0.44 0.09 262);
   --shadow-card: 0 12px 40px -18px color-mix(in oklab, var(--primary) 35%, transparent);
@@ -117,6 +121,8 @@
 }
 
 .dark {
+  --challenge: oklch(0.23 0.025 18);
+  --challenge-foreground: oklch(0.76 0.13 18);
   --cluster-ink: oklch(0.37 0.15 262);
   --cluster-detail: oklch(0.44 0.09 262);
   --background: oklch(0.129 0.042 264.695);
@@ -166,6 +172,9 @@
 
 .glass { background: color-mix(in oklab, var(--background) 72%, transparent); backdrop-filter: blur(18px) saturate(160%); }
 .shadow-card { box-shadow: var(--shadow-card); }
+.solutions-hero { background: linear-gradient(110deg, var(--background), var(--brand-soft)); }
+.solutions-cta { background: linear-gradient(110deg, var(--brand-soft), var(--surface)); }
+.solution-capability { box-shadow: 0 2px 12px color-mix(in oklab, var(--foreground) 4%, transparent); }
 @keyframes dash { to { stroke-dashoffset: -40; } }
 .flow-line { stroke-dasharray: 6 8; animation: dash 1.6s linear infinite; }
 @keyframes floaty { 50% { transform: translateY(-8px); } }

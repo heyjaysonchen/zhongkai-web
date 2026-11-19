@@ -30,3 +30,4 @@ use the editor.
 <!-- LOVABLE:END -->
 
 - Keep the hero cluster artwork and its HTML/Lucide overlays in one fixed-aspect-ratio coordinate container so labels remain aligned to the image at every screen size.
+- Keep industry solution copy in a shared browser-safe data module and render its overview and detail views from that source so content remains consistent.
