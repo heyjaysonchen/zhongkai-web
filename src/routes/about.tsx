@@ -33,11 +33,6 @@ const experts = [
   { name: "李思涵", title: "行业专家", photo: li, background: ["北京大学人工智能博士", "SAS 前高级研究科学家"] },
   { name: "王建国", title: "AI 技术专家", photo: wang, background: ["IBM 前杰出工程师", "分布式系统与大数据专家"] },
 ];
-const teamDna = [
-  { title: "名校科研基因", text: "核心成员来自清华、北大，长期深耕机器学习与知识工程。", Icon: Sparkles },
-  { title: "国际一线实战", text: "IBM、SAS 多年企业级交付经验，熟悉金融与央国企系统。", Icon: Network },
-  { title: "行业 × AI 双轨", text: "懂监管口径与业务语义，也懂大模型与智能体工程落地。", Icon: Layers },
-];
 const capabilities = [
   { title: "数据编排", en: "Data Orchestration", description: "打通多源异构数据，构建高质量、可控的数据流通体系。", asset: sceneData, tags: ["多源融合", "高质量数据", "可控流通"] },
   { title: "本体知识图谱", en: "Ontology Knowledge Graph", description: "融合行业知识与大规模数据，构建可推理、可视化的知识体系。", asset: sceneOntology, tags: ["业务语义", "知识推理", "可视化"] },
@@ -84,9 +79,6 @@ function AboutPage() {
             <div className="about-logos" aria-label="产学研协同机构">
               {[{ name: "清华大学", asset: tsinghua }, { name: "北京大学", asset: peking }, { name: "IBM", asset: ibm }, { name: "SAS", asset: sas }].map(item => <div className="about-logo-card" key={item.name}><img src={item.asset.url} alt={`${item.name}官方标识`} loading="lazy" decoding="async" /></div>)}
             </div>
-            <ul className="about-dna" aria-label="团队基因">
-              {teamDna.map(({ title, text, Icon }) => <li key={title}><span><Icon aria-hidden="true" /></span><div><h3>{title}</h3><p>{text}</p></div></li>)}
-            </ul>
           </div>
           <div className="min-w-0 about-team-col">
             <div className="about-team-heading"><h2>创业团队</h2><Button variant="link" className="h-auto shrink-0 p-0 text-xs" onClick={() => setDetail({ type: "team" })}>查看更多 <ArrowRight aria-hidden="true" /></Button></div>
