@@ -4,9 +4,9 @@ import { ArrowRight, Crosshair, Fingerprint, GitBranch, Layers, Network, ShieldC
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import cube from "@/assets/about_hero_3d_city_soft_bokeh.png.asset.json";
-import dataIcon from "@/assets/about_icon_data_orchestration_v2.png.asset.json";
-import ontologyIcon from "@/assets/about_icon_ontology_graph_v2.png.asset.json";
-import agentIcon from "@/assets/about_icon_multi_agent_v2.png.asset.json";
+import sceneData from "@/assets/scene_data_orchestration_v1.png.asset.json";
+import sceneOntology from "@/assets/scene_ontology_graph_v1.png.asset.json";
+import sceneAgent from "@/assets/scene_multi_agent_v1.png.asset.json";
 import zhang from "@/assets/expert_zhang_portrait.jpg.asset.json";
 import li from "@/assets/expert_li_portrait.jpg.asset.json";
 import wang from "@/assets/expert_wang_portrait.jpg.asset.json";
@@ -34,9 +34,9 @@ const experts = [
   { name: "王建国", title: "首席架构师", photo: wang, background: ["IBM 前杰出工程师", "分布式系统与大数据专家"] },
 ];
 const capabilities = [
-  { title: "数据编排", en: "Data Orchestration", description: "打通多源异构数据，构建高质量、可控的数据流通体系。", asset: dataIcon, tags: ["多源融合", "高质量数据", "可控流通"] },
-  { title: "本体知识图谱", en: "Ontology Knowledge Graph", description: "融合行业知识与大规模数据，构建可推理、可视化的知识体系。", asset: ontologyIcon, tags: ["业务语义", "知识推理", "可视化"] },
-  { title: "多智能体协同", en: "Multi-Agent Synergy", description: "通过多智能体协作，实现复杂任务的规划、执行与自我进化。", asset: agentIcon, tags: ["任务规划", "协同执行", "自我进化"] },
+  { title: "数据编排", en: "Data Orchestration", description: "打通多源异构数据，构建高质量、可控的数据流通体系。", asset: sceneData, tags: ["多源融合", "高质量数据", "可控流通"] },
+  { title: "本体知识图谱", en: "Ontology Knowledge Graph", description: "融合行业知识与大规模数据，构建可推理、可视化的知识体系。", asset: sceneOntology, tags: ["业务语义", "知识推理", "可视化"] },
+  { title: "多智能体协同", en: "Multi-Agent Synergy", description: "通过多智能体协作，实现复杂任务的规划、执行与自我进化。", asset: sceneAgent, tags: ["任务规划", "协同执行", "自我进化"] },
 ];
 const principles = [
   { title: "聚焦赛道", description: "只做金融与央国企场景，理解监管要求与业务语义，不做泛行业的通用方案。", Icon: Crosshair },
@@ -96,7 +96,7 @@ function AboutPage() {
         <div className="about-container">
           <div className="about-capabilities-layout">
             <div className="about-capabilities-intro"><p className="about-eyebrow">CORE CAPABILITIES</p><h2 id="capabilities-title">三大核心能力<br />驱动企业智能化跃迁</h2><p className="about-body">以数据为基，以知识为脉，以智能体为翼，众凯科技构建面向未来的企业智能底座。</p><Button className="mt-6 rounded-full px-6" onClick={() => setDetail({ type: "technology" })}>了解我们的技术 <ArrowRight aria-hidden="true" /></Button></div>
-            <div className="about-capabilities-grid">{capabilities.map((capability, index) => <article key={capability.title} className="about-capability group"><div className="about-capability-visual"><span>0{index + 1}</span><img src={capability.asset.url} alt={`${capability.title}三维晶体能力图标`} loading="lazy" decoding="async" width={1024} height={1024} /></div><div className="about-capability-copy"><h3>{capability.title}</h3><p className="about-capability-en">{capability.en}</p><p className="about-body">{capability.description}</p><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`了解${capability.title}`} onClick={() => setDetail({ type: "capability", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div></article>)}</div>
+            <div className="about-capabilities-grid">{capabilities.map((capability, index) => <article key={capability.title} className="about-capability group"><div className="about-capability-visual"><span>0{index + 1}</span><img src={capability.asset.url} alt={`${capability.title}三维科技场景图`} loading="lazy" decoding="async" width={1704} height={923} /></div><div className="about-capability-copy"><h3>{capability.title}</h3><p className="about-capability-en">{capability.en}</p><p className="about-body">{capability.description}</p><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`了解${capability.title}`} onClick={() => setDetail({ type: "capability", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div></article>)}</div>
           </div>
           <div className="about-values-row"><ul aria-label="企业价值">{[{ title: "全栈自主可控", en: "Independent & Controllable", Icon: ShieldCheck }, { title: "行业深度赋能", en: "Industry Empowerment", Icon: Layers }, { title: "可信安全体系", en: "Trusted & Secure", Icon: ShieldCheck }, { title: "开放生态共建", en: "Open Ecosystem", Icon: Network }].map(({ title, en, Icon }) => <li key={title}><Icon aria-hidden="true" /><div><strong>{title}</strong><span>{en}</span></div></li>)}</ul><blockquote><Sparkles className="h-4 w-4 shrink-0 text-primary/50" aria-hidden="true" /><div>让智能，真正服务于人类的创造力。<cite>— 众凯科技</cite></div></blockquote></div>
         </div>
@@ -110,8 +110,8 @@ function AboutPage() {
       <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}><DialogContent className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"><DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : selectedCapability?.title ?? (detail?.type === "team" ? "顶尖科研团队" : "三大核心能力底座")}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : selectedCapability ? selectedCapability.description : detail?.type === "team" ? "产学研深度融合，连接前沿科研与生产级工程实践。" : "以数据为基，以知识为脉，以智能体为翼。"}</DialogDescription></DialogHeader>
         {selectedExpert && <div className="flex flex-col gap-6 sm:flex-row"><div className="about-portrait w-full shrink-0 rounded-lg sm:w-52"><img src={selectedExpert.photo.url} alt={`${selectedExpert.name}博士肖像`} /></div><ul className="space-y-3 self-center text-sm leading-7">{selectedExpert.background.map(line => <li key={line}>{line}</li>)}</ul></div>}
         {detail?.type === "team" && <div className="space-y-5">{experts.map(expert => <div key={expert.name} className="border-b border-border pb-5 last:border-0"><h3 className="font-semibold">{expert.name}博士 · {expert.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{expert.background.join(" · ")}</p></div>)}</div>}
-        {selectedCapability && <div className="flex flex-col items-center gap-5 sm:flex-row"><img src={selectedCapability.asset.url} alt={selectedCapability.title} className="aspect-square w-40 object-contain" /><ul className="space-y-3 text-sm">{selectedCapability.tags.map(tag => <li className="flex items-center gap-2" key={tag}><ShieldCheck className="h-4 w-4 text-primary" />{tag}</li>)}</ul></div>}
-        {detail?.type === "technology" && <div className="space-y-4">{capabilities.map(capability => <div key={capability.title} className="flex items-center gap-4 border-b border-border pb-4 last:border-0"><img src={capability.asset.url} alt={capability.title} className="h-20 w-20 shrink-0 object-contain" /><div><h3 className="font-semibold">{capability.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{capability.description}</p></div></div>)}</div>}
+        {selectedCapability && <div className="flex flex-col items-center gap-5 sm:flex-row"><img src={selectedCapability.asset.url} alt={selectedCapability.title} className="aspect-[1704/923] w-full max-w-sm rounded-md object-cover" /><ul className="space-y-3 text-sm">{selectedCapability.tags.map(tag => <li className="flex items-center gap-2" key={tag}><ShieldCheck className="h-4 w-4 text-primary" />{tag}</li>)}</ul></div>}
+        {detail?.type === "technology" && <div className="space-y-4">{capabilities.map(capability => <div key={capability.title} className="flex items-center gap-4 border-b border-border pb-4 last:border-0"><img src={capability.asset.url} alt={capability.title} className="aspect-[1704/923] w-32 shrink-0 rounded object-cover" /><div><h3 className="font-semibold">{capability.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{capability.description}</p></div></div>)}</div>}
       </DialogContent></Dialog>
     </main>
   );
