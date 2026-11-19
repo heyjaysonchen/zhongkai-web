@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Mail, QrCode } from "lucide-react";
+import { MapPin, Mail } from "lucide-react";
 import { Brand } from "./Header";
+import wechatQr from "@/assets/wechat-official-qrcode.jpg.asset.json";
 
 const cols = [
   { title: "产品", items: [["数据编排", "/products"], ["本体建模", "/products"], ["智能体协同", "/products"]] },
@@ -35,8 +36,8 @@ export function SiteFooter() {
             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" />contact@zhongkaitech.com.cn</p>
           </div>
           <div className="text-center">
-            <div className="flex h-24 w-24 items-center justify-center rounded-lg border border-border bg-card">
-              <QrCode className="h-16 w-16 text-foreground" />
+            <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
+              <img src={wechatQr.url} alt="众凯科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
             </div>
             <p className="mt-2 text-xs text-muted-foreground">官方微信公众号</p>
           </div>
