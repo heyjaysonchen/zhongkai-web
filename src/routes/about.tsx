@@ -1,141 +1,118 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronRight, Crosshair, Fingerprint, GitBranch, GraduationCap, Layers, Network, ShieldCheck } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowRight, Crosshair, Fingerprint, GitBranch, Layers, Network, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import cube from "@/assets/about_hero_3d_ai_cube_complete.png.asset.json";
-import dataIcon from "@/assets/about_icon_data_orchestration.png.asset.json";
-import ontologyIcon from "@/assets/about_icon_ontology_graph.png.asset.json";
-import agentIcon from "@/assets/about_icon_multi_agent.png.asset.json";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import cube from "@/assets/about_hero_3d_ai_cube_complete-v2.png.asset.json";
+import dataIcon from "@/assets/about_icon_data_orchestration-v2.png.asset.json";
+import ontologyIcon from "@/assets/about_icon_ontology_graph-v2.png.asset.json";
+import agentIcon from "@/assets/about_icon_multi_agent-v2.png.asset.json";
+import zhang from "@/assets/expert_zhang_portrait.jpg.asset.json";
+import li from "@/assets/expert_li_portrait.jpg.asset.json";
+import wang from "@/assets/expert_wang_portrait.jpg.asset.json";
 import tsinghua from "@/assets/tsinghua-university-combo.png.asset.json";
 import peking from "@/assets/peking-university-combo.png.asset.json";
 import ibm from "@/assets/ibm-eight-bar.png.asset.json";
 import sas from "@/assets/sas-logo-tight.png.asset.json";
 
-const description = "众凯加速科技于 2023 年在北京设立，面向金融与央企做决策智能，以数据编排、本体知识图谱与多智能体协同，让业务决策信得过、可追溯、能执行。";
-
+const description = "众凯加速科技于 2023 年在北京设立，面向金融与央企做决策智能平台。释放数据要素价值，让每一次业务决策都信得过、可追溯、能执行。";
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "关于众凯加速科技 | 金融与央企决策智能" },
-      { name: "description", content: description },
-      { property: "og:title", content: "关于众凯加速科技 | 金融与央企决策智能" },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => ({ meta: [
+    { title: "关于众凯加速科技 | 自主可控的决策智能" },
+    { name: "description", content: description },
+    { property: "og:title", content: "关于众凯加速科技 | 自主可控的决策智能" },
+    { property: "og:description", content: description },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AboutPage,
 });
 
-const concerns = [
-  { title: "数据对齐", question: "数据能不能对齐成业务对象", label: "业务对象", Icon: Layers },
-  { title: "结论可溯", question: "结论能不能回到口径和来源", label: "口径与来源", Icon: Fingerprint },
-  { title: "行动可控", question: "建议能不能落在事先约定的动作范围内", label: "约定的动作范围", Icon: ShieldCheck },
-];
-
-const principles = [
-  { title: "聚焦赛道", description: "只做金融与央国企场景，理解监管要求与业务语义，不做泛行业的通用方案。", Icon: Crosshair },
-  { title: "方法沉淀", description: "把每次交付沉淀为可复用的本体模型与语义资产，让能力持续复利而非重复建设。", Icon: GitBranch },
-  { title: "结果负责", description: "深入客户现场，交付可运行的生产级方案，对业务结果而非交付文档负责。", Icon: ShieldCheck },
-];
-
 const experts = [
-  { title: "首席科学家", en: "CHIEF SCIENTIST", background: ["清华大学计算机系博士", "前 IBM 研究院首席研究员"], Icon: GraduationCap },
-  { title: "首席数据科学家", en: "CHIEF DATA SCIENTIST", background: ["北京大学人工智能博士", "SAS 前高级研究科学家"], Icon: GitBranch },
-  { title: "首席架构师", en: "CHIEF ARCHITECT", background: ["IBM 前杰出工程师", "分布式系统与大数据专家"], Icon: Network },
+  { name: "张明远", title: "首席科学家", photo: zhang, background: ["清华大学计算机系博士", "前 IBM 研究院首席研究员"] },
+  { name: "李思涵", title: "首席数据科学家", photo: li, background: ["北京大学人工智能博士", "SAS 前高级研究科学家"] },
+  { name: "王建国", title: "首席架构师", photo: wang, background: ["IBM 前杰出工程师", "分布式系统与大数据专家"] },
 ];
-
 const capabilities = [
   { title: "数据编排", en: "Data Orchestration", description: "打通多源异构数据，构建高质量、可控的数据流通体系。", asset: dataIcon, tags: ["多源融合", "高质量数据", "可控流通"] },
   { title: "本体知识图谱", en: "Ontology Knowledge Graph", description: "融合行业知识与大规模数据，构建可推理、可视化的知识体系。", asset: ontologyIcon, tags: ["业务语义", "知识推理", "可视化"] },
   { title: "多智能体协同", en: "Multi-Agent Synergy", description: "通过多智能体协作，实现复杂任务的规划、执行与自我进化。", asset: agentIcon, tags: ["任务规划", "协同执行", "自我进化"] },
 ];
-
-function SectionLabel({ children }: { children: string }) {
-  return <p className="flex items-center gap-3 text-sm font-medium text-primary"><span className="h-px w-6 bg-primary" aria-hidden="true" />{children}</p>;
-}
+const principles = [
+  { title: "聚焦赛道", description: "只做金融与央国企场景，理解监管要求与业务语义，不做泛行业的通用方案。", Icon: Crosshair },
+  { title: "方法沉淀", description: "把每次交付沉淀为可复用的本体模型与语义资产，让能力持续复利而非重复建设。", Icon: GitBranch },
+  { title: "结果负责", description: "深入客户现场，交付可运行的生产级方案，对业务结果而非交付文档负责。", Icon: ShieldCheck },
+];
+const concerns = [
+  { title: "数据对齐", question: "数据能不能对齐成业务对象", Icon: Layers },
+  { title: "结论可溯", question: "结论能不能回到口径和来源", Icon: Fingerprint },
+  { title: "行动可控", question: "建议能不能落在事先约定的动作范围内", Icon: ShieldCheck },
+];
+type Detail = { type: "expert"; index: number } | { type: "capability"; index: number } | { type: "team" } | { type: "technology" };
 
 function AboutPage() {
+  const [detail, setDetail] = useState<Detail | null>(null);
+  const selectedExpert = detail?.type === "expert" ? experts[detail.index] : undefined;
+  const selectedCapability = detail?.type === "capability" ? capabilities[detail.index] : undefined;
   return (
     <main className="about-page">
-      <section className="about-hero overflow-hidden pb-12 pt-28 lg:pb-14 lg:pt-32" aria-labelledby="about-title">
-        <div className="mx-auto max-w-6xl px-6">
-          <nav aria-label="面包屑" className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Button asChild variant="link" className="h-auto p-0 text-xs text-muted-foreground"><Link to="/">首页</Link></Button>
-            <ChevronRight className="h-3 w-3" aria-hidden="true" /><span aria-current="page">关于我们</span>
-          </nav>
-          <div className="grid items-center gap-7 pt-10 lg:grid-cols-[1fr_1.05fr] lg:gap-8 lg:pt-4">
-            <div className="relative z-10">
-              <SectionLabel>ABOUT US · 关于众凯</SectionLabel>
-              <h1 id="about-title" className="mt-5 text-4xl font-bold leading-snug text-foreground sm:text-5xl">众凯加速科技</h1>
-              <p className="mt-5 text-xl font-semibold leading-relaxed text-primary sm:text-2xl">面向金融与央企，做决策智能</p>
-              <p className="mt-6 max-w-lg text-base leading-8 text-muted-foreground">以数据为底座，以行业知识为语义，以智能体为执行力量，让每一次业务决策都信得过、可追溯、能执行。</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="h-12 rounded-full px-7"><Link to="/contact">与我们交流 <ArrowRight aria-hidden="true" /></Link></Button>
-                <Button asChild variant="outline" size="lg" className="h-12 rounded-full border-primary/25 bg-background/70 px-7 text-primary"><Link to="/solutions">探索解决方案 <ArrowRight aria-hidden="true" /></Link></Button>
-              </div>
-              <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-primary/15 pt-5 text-xs text-muted-foreground">
-                <span>2023 年 · 北京</span><span className="h-3 w-px bg-border" aria-hidden="true" /><span>众凯决策智能平台</span>
-              </div>
+      <section className="about-hero" aria-labelledby="about-title">
+        <div className="about-container about-hero-layout">
+          <div className="about-hero-copy">
+            <p className="about-eyebrow about-badge">ABOUT US</p>
+            <h1 id="about-title">自主可控的超级智能，<br /><span className="text-primary">重构企业决策范式</span></h1>
+            <p className="about-hero-description">{description}</p>
+            <ul className="about-metrics" aria-label="核心实力指标">
+              {[{ value: "2023", unit: "年", label: "公司设立·北京" }, { value: "300+", label: "行业客户" }, { value: "100+", label: "核心技术与专利" }, { value: "50+", label: "顶尖科研人才" }].map(item => <li key={item.value}><strong>{item.value}<span>{item.unit}</span></strong><p>{item.label}</p></li>)}
+            </ul>
+          </div>
+          <div className="about-hero-art"><img src={cube.url} alt="完整的全息 AI 决策魔方，带悬浮卡片与底座光环" width={1024} height={1024} fetchPriority="high" decoding="async" className="about-cube" /></div>
+        </div>
+      </section>
+
+      <section className="about-research-band" aria-labelledby="research-title">
+        <div className="about-container about-research-layout">
+          <div className="about-research-intro">
+            <p className="about-eyebrow">RESEARCH &amp; ACADEMIC</p>
+            <h2 id="research-title">产学研协同 · 打造世界级技术底座</h2>
+            <p className="about-body">众凯科技与全球顶尖高校及科研机构深度合作，构建产学研一体化的创新体系，将前沿研究转化为可落地的行业解决方案。</p>
+            <div className="about-logos" aria-label="产学研协同机构">
+              {[{ name: "清华大学", asset: tsinghua }, { name: "北京大学", asset: peking }, { name: "IBM", asset: ibm }, { name: "SAS", asset: sas }].map(item => <div className="about-logo-card" key={item.name}><img src={item.asset.url} alt={`${item.name}官方标识`} loading="lazy" decoding="async" /></div>)}
             </div>
-            <img src={cube.url} alt="众凯全息 AI 决策魔方，连接数据决策智能、AI 与行业知识深度融合及可持续智能未来" width={1024} height={1024} fetchPriority="high" decoding="async" className="about-cube mx-auto aspect-square w-full max-w-[540px] object-contain" />
           </div>
-        </div>
-      </section>
-
-      <section className="py-16 lg:py-20" aria-labelledby="company-title">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-            <div>
-              <SectionLabel>企业简介</SectionLabel>
-              <h2 id="company-title" className="mt-4 text-3xl font-bold leading-snug sm:text-4xl">把数据与业务，<br />连接成可信的决策</h2>
-              <p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground">众凯加速科技于 2023 年在北京设立，面向金融与央企做决策智能。</p>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">以众凯决策智能平台为载体，融合数据编排、本体知识图谱与多智能体协同，把行业方法沉淀为持续可复用的能力。</p>
+          <div className="min-w-0">
+            <div className="about-team-heading"><h2>顶尖科研团队</h2><Button variant="link" className="h-auto shrink-0 p-0 text-xs" onClick={() => setDetail({ type: "team" })}>查看更多 <ArrowRight aria-hidden="true" /></Button></div>
+            <div className="about-experts">
+              {experts.map((expert, index) => <article key={expert.name} className="about-expert group">
+                <div className="about-portrait"><img src={expert.photo.url} alt={`${expert.name}博士肖像`} width={164} height={102} loading="lazy" decoding="async" /></div>
+                <div className="about-expert-copy"><h3>{expert.name}<span>博士</span></h3><p className="about-expert-role">{expert.title}</p><ul>{expert.background.map(line => <li key={line}>{line}</li>)}</ul><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`查看${expert.name}博士档案`} onClick={() => setDetail({ type: "expert", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div>
+              </article>)}
             </div>
-            <dl className="about-company-facts self-center border-y border-primary/15 px-5 sm:px-7">
-              {[["公司名称", "众凯加速科技"], ["设立时间", "2023 年"], ["所在地", "北京"], ["关注行业", "金融、央企"], ["产品", "众凯决策智能平台"]].map(([label, value]) => <div key={label} className="grid grid-cols-[80px_1fr] items-start gap-4 border-b border-primary/10 py-4 text-sm last:border-0 sm:text-base"><dt className="text-muted-foreground">{label}</dt><dd className="text-right font-medium leading-6">{value}</dd></div>)}
-            </dl>
-          </div>
-          <h3 className="mt-12 text-lg font-semibold">我们关心三件事</h3>
-          <div className="mt-5 grid gap-5 md:grid-cols-3">
-            {concerns.map(({ title, question, label, Icon }, i) => <article key={title} className="about-focus-card rounded-lg border border-primary/15 p-6">
-              <div className="flex items-center justify-between"><Icon className="h-6 w-6 text-primary" strokeWidth={1.6} aria-hidden="true" /><span className="text-sm font-medium text-primary/50">0{i + 1}</span></div>
-              <h4 className="mt-6 text-xl font-semibold">{title}</h4><p className="mt-3 min-h-14 text-sm leading-7 text-muted-foreground">{question}</p>
-              <p className="mt-5 border-t border-primary/10 pt-4 text-xs font-medium text-primary">{label}</p>
-            </article>)}
           </div>
         </div>
       </section>
 
-      <section className="border-y border-primary/10 bg-brand-soft/60 py-12 lg:py-16" aria-label="我们的数字化主张">
-        <div className="mx-auto max-w-4xl px-6 text-center"><span className="mx-auto block h-1 w-10 bg-primary" aria-hidden="true" /><blockquote className="mt-6 text-xl font-semibold leading-loose sm:text-2xl">真正意义上的数字化，不是把报表搬到屏幕上，<br className="hidden lg:block" />而是让每一次业务决策都<span className="text-primary">信得过、可追溯、能执行。</span></blockquote></div>
-      </section>
-
-      <section className="py-16 lg:py-20" aria-labelledby="position-title">
-        <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>我们的定位</SectionLabel>
-          <h2 id="position-title" className="mt-4 text-3xl font-bold leading-snug sm:text-4xl">只做一件事，并把方法沉淀下来</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">{principles.map(({ title, description: detail, Icon }) => <article key={title} className="rounded-lg border border-border bg-card p-7 shadow-card transition-colors hover:border-primary/40"><Icon className="h-7 w-7 text-primary" strokeWidth={1.6} aria-hidden="true" /><h3 className="mt-6 text-xl font-semibold">{title}</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">{detail}</p></article>)}</div>
+      <section className="about-capabilities-band" aria-labelledby="capabilities-title">
+        <div className="about-container">
+          <div className="about-capabilities-layout">
+            <div className="about-capabilities-intro"><p className="about-eyebrow">CORE CAPABILITIES</p><h2 id="capabilities-title">三大核心能力<br />驱动企业智能化跃迁</h2><p className="about-body">以数据为基，以知识为脉，以智能体为翼，众凯科技构建面向未来的企业智能底座。</p><Button className="mt-6 rounded-full px-6" onClick={() => setDetail({ type: "technology" })}>了解我们的技术 <ArrowRight aria-hidden="true" /></Button></div>
+            <div className="about-capabilities-grid">{capabilities.map((capability, index) => <article key={capability.title} className="about-capability group"><div className="about-capability-visual"><span>0{index + 1}</span><img src={capability.asset.url} alt={`${capability.title}三维晶体能力图标`} loading="lazy" decoding="async" width={1024} height={1024} /></div><div className="about-capability-copy"><h3>{capability.title}</h3><p className="about-capability-en">{capability.en}</p><p className="about-body">{capability.description}</p><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`了解${capability.title}`} onClick={() => setDetail({ type: "capability", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div></article>)}</div>
+          </div>
+          <div className="about-values-row"><ul aria-label="企业价值">{[{ title: "全栈自主可控", en: "Independent & Controllable", Icon: ShieldCheck }, { title: "行业深度赋能", en: "Industry Empowerment", Icon: Layers }, { title: "可信安全体系", en: "Trusted & Secure", Icon: ShieldCheck }, { title: "开放生态共建", en: "Open Ecosystem", Icon: Network }].map(({ title, en, Icon }) => <li key={title}><Icon aria-hidden="true" /><div><strong>{title}</strong><span>{en}</span></div></li>)}</ul><blockquote><Sparkles className="h-4 w-4 shrink-0 text-primary/50" aria-hidden="true" /><div>让智能，真正服务于人类的创造力。<cite>— 众凯科技</cite></div></blockquote></div>
         </div>
       </section>
 
-      <section className="about-team border-y border-primary/10 py-16 lg:py-20" aria-labelledby="team-title">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="mx-auto max-w-3xl text-center"><p className="text-sm font-medium text-primary">产学研深度融合</p><h2 id="team-title" className="mt-4 text-3xl font-bold leading-snug sm:text-4xl">学术深度 × 企业级实战</h2><p className="mt-5 text-sm leading-7 text-muted-foreground">来自清华、北大及 IBM、SAS 的专家背景，连接前沿科研、行业知识与生产级工程实践。</p></div>
-          <div aria-label="团队背景机构" className="mt-10 grid grid-cols-2 items-center gap-x-6 gap-y-8 border-y border-primary/10 py-8 sm:grid-cols-4 sm:gap-10">{[{ name: "清华大学官方标识", asset: tsinghua }, { name: "北京大学官方标识", asset: peking }, { name: "IBM 官方标识", asset: ibm }, { name: "SAS 官方标识", asset: sas }].map(({ name, asset }) => <div key={name} className="flex h-16 min-w-0 items-center justify-center"><img src={asset.url} alt={name} loading="lazy" decoding="async" className="h-9 w-auto max-w-full object-contain sm:h-12 lg:h-14" /></div>)}</div>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">{experts.map(({ title, en, background, Icon }) => <article key={title} className="about-expert rounded-lg border border-primary/15 p-7"><div className="flex items-center gap-4"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-primary"><Icon className="h-6 w-6" strokeWidth={1.6} aria-hidden="true" /></span><h3 className="text-xl font-semibold">{title}</h3></div><p className="mt-5 text-[10px] font-medium text-primary">{en}</p><ul className="mt-5 space-y-4 border-t border-primary/10 pt-5">{background.map(item => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />{item}</li>)}</ul></article>)}</div>
-        </div>
+      <section className="about-position-band" aria-labelledby="position-title">
+        <div className="about-container"><p className="about-eyebrow">OUR COMMITMENT · 我们的定位</p><h2 id="position-title">只做一件事，并把方法沉淀下来</h2><div className="about-position-grid">{principles.map(({ title, description: text, Icon }, index) => <article key={title} className="about-position-card"><div className="flex items-center justify-between"><span className="about-semantic-icon"><Icon aria-hidden="true" /></span><span className="text-sm font-medium text-primary/40">0{index + 1}</span></div><h3>{title}</h3><p className="about-body">{text}</p></article>)}</div><div className="about-concerns-heading"><h3>我们关心三件事</h3><p>从业务对象到业务行动，让智能始终有据可循。</p></div><div className="about-concerns-grid">{concerns.map(({ title, question, Icon }) => <article className="about-concern-card" key={title}><Icon aria-hidden="true" /><div><h4>{title}</h4><p>{question}</p></div></article>)}</div></div>
       </section>
+      <section className="about-quote-band"><div className="about-container"><p className="about-eyebrow">众凯决策智能平台</p><blockquote>真正意义上的数字化，不是把报表搬到屏幕上，<br className="hidden md:block" />而是让每一次业务决策都<span className="text-primary">信得过、可追溯、能执行。</span></blockquote></div></section>
 
-      <section className="py-16 lg:py-20" aria-labelledby="capabilities-title">
-        <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>核心技术优势</SectionLabel><h2 id="capabilities-title" className="mt-4 text-3xl font-bold leading-snug sm:text-4xl">三大能力底座，一个决策闭环</h2><p className="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground">从数据对齐，到知识推理，再到协同执行，让行业智能从理解业务走向业务行动。</p>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">{capabilities.map(({ title, en, description: detail, asset, tags }, i) => <article key={title} className="about-capability group flex min-w-0 flex-col rounded-lg border border-border px-7 pb-7 pt-5 transition-colors hover:border-primary/40"><div className="flex items-center justify-between text-xs text-muted-foreground"><span>0{i + 1}</span><span>CORE CAPABILITY</span></div><img src={asset.url} alt={`${title}三维能力图标`} width={1024} height={1024} loading="lazy" decoding="async" className="mx-auto my-4 aspect-square w-full max-w-[220px] object-contain transition-transform duration-500 motion-safe:group-hover:-translate-y-2" /><h3 className="text-xl font-semibold">{title}</h3><p className="mt-2 text-xs text-primary">{en}</p><p className="mt-4 flex-1 text-sm leading-7 text-muted-foreground">{detail}</p><ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-primary/10 pt-4 text-xs text-muted-foreground" aria-label={`${title}能力`}>{tags.map(tag => <li key={tag}>{tag}</li>)}</ul></article>)}</div>
-        </div>
-      </section>
-
-      <section className="solutions-cta border-y border-primary/10 py-12 lg:py-16">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-7 px-6 md:flex-row md:items-center"><div><p className="text-sm font-medium text-primary">众凯决策智能平台</p><h2 className="mt-3 text-2xl font-bold leading-snug sm:text-3xl">让每一次业务决策，都值得信赖</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">聚焦金融与央企，与你一起把可信智能带入业务现场。</p></div><Button asChild size="lg" className="h-12 shrink-0 rounded-full px-7"><Link to="/contact">预约演示 <ArrowRight aria-hidden="true" /></Link></Button></div>
-      </section>
+      <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}><DialogContent className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"><DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : selectedCapability?.title ?? (detail?.type === "team" ? "顶尖科研团队" : "三大核心能力底座")}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : selectedCapability ? selectedCapability.description : detail?.type === "team" ? "产学研深度融合，连接前沿科研与生产级工程实践。" : "以数据为基，以知识为脉，以智能体为翼。"}</DialogDescription></DialogHeader>
+        {selectedExpert && <div className="flex flex-col gap-6 sm:flex-row"><div className="about-portrait w-full shrink-0 rounded-lg sm:w-52"><img src={selectedExpert.photo.url} alt={`${selectedExpert.name}博士肖像`} /></div><ul className="space-y-3 self-center text-sm leading-7">{selectedExpert.background.map(line => <li key={line}>{line}</li>)}</ul></div>}
+        {detail?.type === "team" && <div className="space-y-5">{experts.map(expert => <div key={expert.name} className="border-b border-border pb-5 last:border-0"><h3 className="font-semibold">{expert.name}博士 · {expert.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{expert.background.join(" · ")}</p></div>)}</div>}
+        {selectedCapability && <div className="flex flex-col items-center gap-5 sm:flex-row"><img src={selectedCapability.asset.url} alt={selectedCapability.title} className="aspect-square w-40 object-contain" /><ul className="space-y-3 text-sm">{selectedCapability.tags.map(tag => <li className="flex items-center gap-2" key={tag}><ShieldCheck className="h-4 w-4 text-primary" />{tag}</li>)}</ul></div>}
+        {detail?.type === "technology" && <div className="space-y-4">{capabilities.map(capability => <div key={capability.title} className="flex items-center gap-4 border-b border-border pb-4 last:border-0"><img src={capability.asset.url} alt={capability.title} className="h-20 w-20 shrink-0 object-contain" /><div><h3 className="font-semibold">{capability.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{capability.description}</p></div></div>)}</div>}
+      </DialogContent></Dialog>
     </main>
   );
 }
