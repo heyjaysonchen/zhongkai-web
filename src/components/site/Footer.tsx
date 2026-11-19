@@ -31,7 +31,7 @@ export function SiteFooter() {
         </div>
         <div className="flex justify-between gap-6">
           <div className="space-y-3 text-sm text-muted-foreground">
-            <p className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />北京市海淀区中关村南大街科技大厦</p>
+            <p className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />北京市东城区北三环东路36号·环球贸易中心E座3F</p>
             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" />contact@zhongkaitech.com.cn</p>
           </div>
           <div className="text-center">
