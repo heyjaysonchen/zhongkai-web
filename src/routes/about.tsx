@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Crosshair, Fingerprint, GitBranch, Layers, Network, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Clock, Crosshair, Fingerprint, GitBranch, Layers, Mail, Network, QrCode, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import cube from "@/assets/about_hero_3d_city_soft_bokeh.png.asset.json";
@@ -14,6 +14,7 @@ import tsinghua from "@/assets/tsinghua-university-combo.png.asset.json";
 import peking from "@/assets/peking-university-combo.png.asset.json";
 import ibm from "@/assets/ibm-eight-bar.png.asset.json";
 import sas from "@/assets/sas-logo-tight.png.asset.json";
+import wechatQr from "@/assets/wechat-official-qrcode.jpg.asset.json";
 
 const description = "众凯加速科技于 2023 年在北京设立，面向金融与央企做决策智能平台。释放数据要素价值，让每一次业务决策都信得过、可追溯、能执行。";
 export const Route = createFileRoute("/about")({
@@ -106,6 +107,36 @@ function AboutPage() {
         <div className="about-container"><p className="about-eyebrow">OUR COMMITMENT · 我们的定位</p><h2 id="position-title">只做一件事，并把方法沉淀下来</h2><div className="about-position-grid">{principles.map(({ title, description: text, Icon }, index) => <article key={title} className="about-position-card"><div className="flex items-center justify-between"><span className="about-semantic-icon"><Icon aria-hidden="true" /></span><span className="text-sm font-medium text-primary/40">0{index + 1}</span></div><h3>{title}</h3><p className="about-body">{text}</p></article>)}</div><div className="about-concerns-heading"><h3>我们关心三件事</h3><p>从业务对象到业务行动，让智能始终有据可循。</p></div><div className="about-concerns-grid">{concerns.map(({ title, question, Icon }) => <article className="about-concern-card" key={title}><Icon aria-hidden="true" /><div><h4>{title}</h4><p>{question}</p></div></article>)}</div></div>
       </section>
       <section className="about-quote-band"><div className="about-container"><p className="about-eyebrow">众凯决策智能平台</p><blockquote>真正意义上的数字化，不是把报表搬到屏幕上，<br className="hidden md:block" />而是让每一次业务决策都<span className="text-primary">信得过、可追溯、能执行。</span></blockquote></div></section>
+
+      <section className="about-contact-band" aria-labelledby="contact-title">
+        <div className="about-container">
+          <h2 id="contact-title" className="sr-only">联系我们</h2>
+          <div className="about-contact-grid">
+            <article className="about-contact-card">
+              <span className="about-semantic-icon"><Mail aria-hidden="true" /></span>
+              <p className="about-contact-label">商务邮箱</p>
+              <a className="about-contact-value" href="mailto:contact@zhongkaitech.com.cn">contact@zhongkaitech.com.cn</a>
+              <p className="about-contact-copy">产品咨询、方案交流与合作洽谈，均可通过邮件沟通。我们会在收到邮件后尽快回复。</p>
+              <Button asChild variant="outline" className="mt-auto rounded-full px-6 font-medium">
+                <a href="mailto:contact@zhongkaitech.com.cn">发送邮件 <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" /></a>
+              </Button>
+            </article>
+            <article className="about-contact-card about-contact-card-wechat">
+              <div className="min-w-0">
+                <span className="about-semantic-icon"><QrCode aria-hidden="true" /></span>
+                <p className="about-contact-label">微信公众号</p>
+                <p className="about-contact-name">众凯加速科技</p>
+                <p className="about-contact-copy">关注公众号，获取产品动态、行业观察与方法分享。</p>
+              </div>
+              <div className="about-contact-qr"><img src={wechatQr.url} alt="众凯加速科技官方微信公众号二维码" width={128} height={128} loading="lazy" decoding="async" /><span>扫码关注</span></div>
+            </article>
+          </div>
+          <div className="about-contact-bar">
+            <p><Clock aria-hidden="true" />工作时间：周一至周五 09:00 - 18:00</p>
+            <p><ShieldCheck aria-hidden="true" />邮件沟通便于留档，适合正式事项对接</p>
+          </div>
+        </div>
+      </section>
 
       <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}><DialogContent className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"><DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : selectedCapability?.title ?? (detail?.type === "team" ? "创业团队" : "三大核心能力底座")}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : selectedCapability ? selectedCapability.description : detail?.type === "team" ? "产学研深度融合，连接前沿科研与生产级工程实践。" : "以数据为基，以知识为脉，以智能体为翼。"}</DialogDescription></DialogHeader>
         {selectedExpert && <div className="flex flex-col gap-6 sm:flex-row"><div className="about-portrait w-full shrink-0 rounded-lg sm:w-52"><img src={selectedExpert.photo.url} alt={`${selectedExpert.name}博士肖像`} /></div><ul className="space-y-3 self-center text-sm leading-7">{selectedExpert.background.map(line => <li key={line}>{line}</li>)}</ul></div>}

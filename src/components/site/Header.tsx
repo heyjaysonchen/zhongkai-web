@@ -8,7 +8,6 @@ const nav = [
   { to: "/products", label: "产品" },
   { to: "/solutions", label: "解决方案" },
   { to: "/about", label: "关于我们" },
-  { to: "/contact", label: "联系我们" },
 ] as const;
 
 export function Brand({ size = 36 }: { size?: number }) {
