@@ -12,7 +12,7 @@ const cols = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1.7fr_0.9fr]">
+      <div className="mx-auto grid max-w-6xl items-start gap-10 px-6 py-14 md:grid-cols-[1.4fr_1.7fr_0.9fr]">
         <div className="space-y-5">
           <Brand />
           <p className="text-sm text-muted-foreground">人工智能大模型与决策智能提供商</p>
@@ -35,7 +35,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="text-center">
+        <div className="flex flex-col items-center text-center md:items-start md:text-left">
           <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
             <img src={wechatQr.url} alt="众凯加速科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
           </div>
