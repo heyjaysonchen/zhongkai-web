@@ -76,7 +76,7 @@ function AboutPage() {
           <div className="about-research-intro">
             <p className="about-eyebrow">RESEARCH &amp; ACADEMIC</p>
             <h2 id="research-title">产学研协同 · 打造世界级技术底座</h2>
-            <p className="about-body">众凯科技与全球顶尖高校及科研机构深度合作，构建产学研一体化的创新体系，将前沿研究转化为可落地的行业解决方案。</p>
+            <p className="about-body">众凯加速科技与全球顶尖高校及科研机构深度合作，构建产学研一体化的创新体系，将前沿研究转化为可落地的行业解决方案。</p>
             <div className="about-logos" aria-label="产学研协同机构">
               {[{ name: "清华大学", asset: tsinghua }, { name: "北京大学", asset: peking }, { name: "IBM", asset: ibm }, { name: "SAS", asset: sas }].map(item => <div className="about-logo-card" key={item.name}><img src={item.asset.url} alt={`${item.name}官方标识`} loading="lazy" decoding="async" /></div>)}
             </div>
@@ -96,10 +96,10 @@ function AboutPage() {
       <section className="about-capabilities-band" aria-labelledby="capabilities-title">
         <div className="about-container">
           <div className="about-capabilities-layout">
-            <div className="about-capabilities-intro"><p className="about-eyebrow">CORE CAPABILITIES</p><h2 id="capabilities-title">三大核心能力<br />驱动企业智能化跃迁</h2><p className="about-body">以数据为基，以知识为脉，以智能体为翼，众凯科技构建面向未来的企业智能底座。</p><Button className="mt-6 rounded-full px-6" onClick={() => setDetail({ type: "technology" })}>了解我们的技术 <ArrowRight aria-hidden="true" /></Button></div>
+            <div className="about-capabilities-intro"><p className="about-eyebrow">CORE CAPABILITIES</p><h2 id="capabilities-title">三大核心能力<br />驱动企业智能化跃迁</h2><p className="about-body">以数据为基，以知识为脉，以智能体为翼，众凯加速科技构建面向未来的企业智能底座。</p><Button className="mt-6 rounded-full px-6" onClick={() => setDetail({ type: "technology" })}>了解我们的技术 <ArrowRight aria-hidden="true" /></Button></div>
             <div className="about-capabilities-grid">{capabilities.map((capability, index) => <article key={capability.title} className="about-capability group"><div className="about-capability-visual"><span>0{index + 1}</span><img src={capability.asset.url} alt={`${capability.title}三维科技场景图`} loading="lazy" decoding="async" width={1704} height={923} /></div><div className="about-capability-copy"><h3>{capability.title}</h3><p className="about-capability-en">{capability.en}</p><p className="about-body">{capability.description}</p><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`了解${capability.title}`} onClick={() => setDetail({ type: "capability", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div></article>)}</div>
           </div>
-          <div className="about-values-row"><ul aria-label="企业价值">{[{ title: "全栈自主可控", en: "Independent & Controllable", Icon: ShieldCheck }, { title: "行业深度赋能", en: "Industry Empowerment", Icon: Layers }, { title: "可信安全体系", en: "Trusted & Secure", Icon: ShieldCheck }, { title: "开放生态共建", en: "Open Ecosystem", Icon: Network }].map(({ title, en, Icon }) => <li key={title}><Icon aria-hidden="true" /><div><strong>{title}</strong><span>{en}</span></div></li>)}</ul><blockquote><Sparkles className="h-4 w-4 shrink-0 text-primary/50" aria-hidden="true" /><div>让智能，真正服务于人类的创造力。<cite>— 众凯科技</cite></div></blockquote></div>
+          <div className="about-values-row"><ul aria-label="企业价值">{[{ title: "全栈自主可控", en: "Independent & Controllable", Icon: ShieldCheck }, { title: "行业深度赋能", en: "Industry Empowerment", Icon: Layers }, { title: "可信安全体系", en: "Trusted & Secure", Icon: ShieldCheck }, { title: "开放生态共建", en: "Open Ecosystem", Icon: Network }].map(({ title, en, Icon }) => <li key={title}><Icon aria-hidden="true" /><div><strong>{title}</strong><span>{en}</span></div></li>)}</ul><blockquote><Sparkles className="h-4 w-4 shrink-0 text-primary/50" aria-hidden="true" /><div>让智能，真正服务于人类的创造力。<cite>— 众凯加速科技</cite></div></blockquote></div>
         </div>
       </section>
 

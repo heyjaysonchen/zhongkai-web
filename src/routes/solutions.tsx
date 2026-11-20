@@ -9,9 +9,9 @@ import { industrySolutions, type IndustrySolution, type SolutionCapability } fro
 export const Route = createFileRoute("/solutions")({
   head: () => ({
     meta: [
-      { title: "金融、SAS 国产替换与央国企 AI 解决方案 | 众凯科技" },
+      { title: "金融、SAS 国产替换与央国企 AI 解决方案 | 众凯加速科技" },
       { name: "description", content: "以统一数据底座驱动金融与央国企决策升级，提供金融 AI、SAS 软件国产替换和央国企 AI 解决方案，支持结果复算、迁移回退与本地化部署。" },
-      { property: "og:title", content: "行业解决方案 | 众凯科技" },
+      { property: "og:title", content: "行业解决方案 | 众凯加速科技" },
       { property: "og:description", content: "聚焦金融 AI、SAS 软件国产替换与央国企 AI，以数据、本体和智能体驱动可信业务决策。" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

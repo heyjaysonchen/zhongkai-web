@@ -13,10 +13,10 @@ const nav = [
 export function Brand({ size = 36 }: { size?: number }) {
   return (
     <Link to="/" className="flex items-center gap-2">
-      <img src={logo.url} alt="众凯科技 Logo" width={size} height={size} />
+      <img src={logo.url} alt="众凯加速科技 Logo" width={size} height={size} />
       <span className="leading-tight">
-        <span className="block text-lg font-bold text-foreground">众凯科技</span>
-        <span className="block text-[10px] tracking-widest text-muted-foreground">ZHONG KAI</span>
+        <span className="block text-lg font-bold text-foreground">众凯加速科技</span>
+        <span className="block text-[10px] tracking-widest text-muted-foreground">ZhongKai Tech</span>
       </span>
     </Link>
   );

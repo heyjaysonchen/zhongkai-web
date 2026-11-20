@@ -37,14 +37,14 @@ export function SiteFooter() {
         </div>
         <div className="text-center">
           <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
-            <img src={wechatQr.url} alt="众凯科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
+            <img src={wechatQr.url} alt="众凯加速科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
           </div>
           <p className="mt-2 text-xs text-muted-foreground">欢迎关注公众号</p>
         </div>
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-6 py-5 text-xs text-muted-foreground">
-          <span>© 2026 众凯科技（北京）有限公司 版权所有</span>
+          <span>© 2026 众凯加速科技（北京）有限公司 版权所有</span>
           <a
             href="https://beian.miit.gov.cn"
             target="_blank"
