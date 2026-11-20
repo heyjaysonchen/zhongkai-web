@@ -15,7 +15,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1.7fr_0.9fr]">
         <div className="space-y-5">
           <Brand />
-          <p className="text-sm text-muted-foreground">让数据更有价值，让智能触手可及</p>
+          <p className="text-sm text-muted-foreground">人工智能大模型与决策智能提供商</p>
           <div className="space-y-3 text-sm text-muted-foreground">
             <p className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />北京市东城区北三环东路36号·环球贸易中心E座3F</p>
             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" />contact@zhongkaitech.com.cn</p>
