@@ -46,7 +46,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-6 py-5 text-xs text-muted-foreground">
           <span>© 2026 众凯科技（北京）有限公司 版权所有</span>
-          <span>京ICP备2025001234号</span>
+          <span>京ICP备2026079931号</span>
         </div>
       </div>
     </footer>
