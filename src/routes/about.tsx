@@ -63,8 +63,8 @@ function AboutPage() {
             <p className="about-eyebrow about-badge">ABOUT US</p>
             <h1 id="about-title">自主可控的超级智能，<br /><span className="text-primary">重构企业决策范式</span></h1>
             <p className="about-hero-description">{description}</p>
-            <ul className="about-metrics" aria-label="核心实力指标">
-              {[{ value: "2023", unit: "年", label: "公司设立·北京" }, { value: "300+", label: "行业客户" }, { value: "100+", label: "核心技术与专利" }, { value: "50+", label: "顶尖科研人才" }].map(item => <li key={item.value}><strong>{item.value}<span>{item.unit}</span></strong><p>{item.label}</p></li>)}
+            <ul className="about-metrics" aria-label="公司设立信息">
+              {[{ value: "2023", unit: "年", label: "公司设立·北京" }].map(item => <li key={item.value}><strong>{item.value}<span>{item.unit}</span></strong><p>{item.label}</p></li>)}
             </ul>
           </div>
           <div className="about-hero-art"><img src={cube.url} alt="多层水晶 AI 决策魔方悬浮于柔和虚化的城市天际线前，核心发光，四周环绕悬浮数据卡片" width={1616} height={976} fetchPriority="high" decoding="async" className="about-cube" /></div>
