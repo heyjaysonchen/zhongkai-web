@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, CircleAlert, FileSearch, ShieldCheck, TrendingUp, Check, ChevronRight } from "lucide-react";
-import architecture from "@/assets/solutions_hero_architecture.png.asset.json";
+import architecture from "@/assets/images/solutions_hero_architecture.png";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { industrySolutions, type IndustrySolution, type SolutionCapability } from "@/components/site/solution-content";
@@ -45,7 +45,7 @@ function SolutionsPage() {
                 ].map(({ Icon, title }) => <li key={title} className="flex items-center gap-2"><Icon className="h-4 w-4 text-primary" aria-hidden="true" />{title}</li>)}
               </ul>
             </div>
-            <img src={architecture.url} alt="企业应用、AI 与代码迁移引擎、统一数据底座组成的三层解决方案架构" width="987" height="721" fetchPriority="high" className="mx-auto block h-auto w-full max-w-[460px] object-contain" />
+            <img src={architecture} alt="企业应用、AI 与代码迁移引擎、统一数据底座组成的三层解决方案架构" width="987" height="721" fetchPriority="high" className="mx-auto block h-auto w-full max-w-[460px] object-contain" />
           </div>
         </div>
       </section>

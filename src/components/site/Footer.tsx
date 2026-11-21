@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { MapPin, Mail } from "lucide-react";
 import { Brand } from "./Header";
-import wechatQr from "@/assets/wechat-official-qrcode.jpg.asset.json";
+import wechatQr from "@/assets/images/wechat-official-qrcode.jpg";
 
 const cols = [
   { title: "产品", items: [["数据编排", "/products"], ["本体建模", "/products"], ["智能体协同", "/products"]] },
@@ -37,7 +37,7 @@ export function SiteFooter() {
         </div>
         <div className="flex flex-col items-center text-center md:items-start md:text-left">
           <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
-            <img src={wechatQr.url} alt="众凯加速科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
+            <img src={wechatQr} alt="众凯加速科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
           </div>
           <p className="mt-2 text-xs text-muted-foreground">欢迎关注公众号</p>
         </div>

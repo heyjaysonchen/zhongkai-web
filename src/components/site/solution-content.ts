@@ -1,7 +1,7 @@
 import { ShieldCheck, ChartColumnIncreasing, Bot, FileText, Database, CodeXml, CopyCheck, Settings, Network, Link2, ChartNoAxesCombined, type LucideIcon } from "lucide-react";
-import finance from "@/assets/badge_finance_3d.png.asset.json";
-import sas from "@/assets/badge_sas_migration_3d.png.asset.json";
-import soe from "@/assets/badge_central_soe_3d.png.asset.json";
+import finance from "@/assets/images/badge_finance_3d.png";
+import sas from "@/assets/images/badge_sas_migration_3d.png";
+import soe from "@/assets/images/badge_central_soe_3d.png";
 
 export type SolutionCapability = { title: string; description: string; detail: string; Icon: LucideIcon };
 export type IndustrySolution = {
@@ -13,7 +13,7 @@ export type IndustrySolution = {
 
 export const industrySolutions: IndustrySolution[] = [
   {
-    id: "finance", title: "金融 AI 解决方案", badge: finance.url,
+    id: "finance", title: "金融 AI 解决方案", badge: finance,
     description: "面向银行、证券、保险、资管等金融机构，构建安全、可控、可解释的智能决策能力。",
     outcome: "结论可溯源 · 权限可管控 · 报告直接出",
     problems: [
@@ -34,7 +34,7 @@ export const industrySolutions: IndustrySolution[] = [
     ],
   },
   {
-    id: "sas-migration", title: "SAS 软件国产替换解决方案", badge: sas.url,
+    id: "sas-migration", title: "SAS 软件国产替换解决方案", badge: sas,
     description: "面向使用 SAS 的金融及大型企业，提供安全、可靠、平滑的国产化替换路径。",
     outcome: "结果可复算 · 迁移可回退 · 按批次平滑切换",
     problems: [
@@ -55,7 +55,7 @@ export const industrySolutions: IndustrySolution[] = [
     ],
   },
   {
-    id: "central-soe", title: "央国企 AI 解决方案", badge: soe.url,
+    id: "central-soe", title: "央国企 AI 解决方案", badge: soe,
     description: "面向中央企业与地方国企，支撑集团化管控、经营分析与重大决策，助力高质量发展。",
     outcome: "本地化部署 · 信创深度适配 · 正式材料报送",
     problems: [

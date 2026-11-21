@@ -1,5 +1,5 @@
 import { BrainCircuit, FileText, Users, Package, Workflow, Database, BookOpen } from "lucide-react";
-import clusterAsset from "@/assets/hero_cluster_transparent_final.png.asset.json";
+import clusterAsset from "@/assets/images/hero_cluster_transparent_final.png";
 
 const nodes = [
   { id: "documents", label: "文档", subtitle: "非结构化信息", Icon: FileText },
@@ -13,7 +13,7 @@ const nodes = [
 export function HeroVisual() {
   return (
     <div className="hero-cluster" role="group" aria-label="企业智能核心与六大业务本体网络">
-      <img src={clusterAsset.url} alt="" width={1302} height={1208} fetchPriority="high" decoding="async" className="hero-cluster-image" />
+      <img src={clusterAsset} alt="" width={1302} height={1208} fetchPriority="high" decoding="async" className="hero-cluster-image" />
       <div className="hero-cluster-node hero-cluster-core" tabIndex={0}>
         <div className="hero-cluster-label">
           <BrainCircuit aria-hidden="true" />

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Bot, Boxes, CheckCircle2, Database, FileCheck2, GitBranch, Layers3, LockKeyhole, Network, Search, Share2, ShieldCheck, Sparkles, Target, TrendingUp, Workflow, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import hero from "@/assets/product-dip-hero.png.asset.json";
-import ontology from "@/assets/product-ontology.png.asset.json";
+import hero from "@/assets/images/product-dip-hero.png";
+import ontology from "@/assets/images/product-ontology.png";
 
 const description = "众凯DIP智能平台，基于本体与多自主智能体协同的企业级决策智能引擎，融合数据编织、本体知识图谱与自主智能体协同。";
 
@@ -79,7 +79,7 @@ function ProductsPage() {
             </div>
           </div>
           <div className="dip-hero-art" role="group" aria-label="众凯 DIP 决策智能核心">
-            <img src={hero.url} width={768} height={768} alt="中心发光 Z 标玻璃立方与蓝色同心光环" fetchPriority="high" />
+            <img src={hero} width={768} height={768} alt="中心发光 Z 标玻璃立方与蓝色同心光环" fetchPriority="high" />
             <div className="dip-float dip-float-agents"><Bot /><div><strong>多智能体协同</strong><span>Multi-Agent Synergy</span></div></div>
             <div className="dip-float dip-float-ontology"><Boxes /><div><strong>本体建模</strong><span>Ontology Modeling</span></div></div>
             <div className="dip-float dip-float-knowledge"><Sparkles /><div><strong>知识驱动决策</strong><span>Knowledge Driven</span></div></div>
@@ -109,7 +109,7 @@ function ProductsPage() {
           <article className="dip-capability">
             <CapabilityHeading number="02" title="多维本体建模与动态知识图谱" en="Ontology Modeling & Knowledge Graph">构建多知识结构化，让数据具备业务语义与推理能力。</CapabilityHeading>
             <div className="dip-ontology-art" role="group" aria-label="四类本体与动态知识图谱">
-              <img src={ontology.url} width={768} height={768} alt="菱形底座、三层玻璃板与双垂直核心立方构成的本体模型" loading="lazy" />
+              <img src={ontology} width={768} height={768} alt="菱形底座、三层玻璃板与双垂直核心立方构成的本体模型" loading="lazy" />
               {ontologyTypes.map(({ title, en, Icon }, index) => <div className={`dip-ontology-label dip-ontology-label-${index}`} key={title}><Icon aria-hidden="true" /><strong>{title}</strong><span>{en}</span></div>)}
             </div>
             <ul className="dip-feature-list">{["多维度本体建模，支持行业及企业个性化扩展", "动态知识图谱，实时融合多源知识与业务数据", "支持时序、因果与多层级关系推理", "持续优化的企业知识资产"].map(text => <li key={text}><CheckCircle2 aria-hidden="true" /><span>{text}</span></li>)}</ul>

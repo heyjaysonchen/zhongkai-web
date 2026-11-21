@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Database, Network, Bot, Landmark, Layers, Building2, Users, BrainCircuit, ShieldCheck, Zap } from "lucide-react";
 import { HeroVisual } from "@/components/site/HeroVisual";
-import tsinghuaCombo from "@/assets/tsinghua-university-combo.png.asset.json";
-import pekingCombo from "@/assets/peking-university-combo.png.asset.json";
-import ibmLogo from "@/assets/ibm-eight-bar.png.asset.json";
-import sasLogo from "@/assets/sas-logo-tight.png.asset.json";
+import tsinghuaCombo from "@/assets/images/tsinghua-university-combo.png";
+import pekingCombo from "@/assets/images/peking-university-combo.png";
+import ibmLogo from "@/assets/images/ibm-eight-bar.png";
+import sasLogo from "@/assets/images/sas-logo-tight.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -159,7 +159,7 @@ function Index() {
           <div aria-label="团队背景机构" className="mx-auto mt-10 grid max-w-5xl grid-cols-2 items-center gap-x-6 gap-y-8 sm:flex sm:flex-wrap sm:justify-between sm:gap-x-10 sm:gap-y-0">
             {institutions.map((it) => (
               <div key={it.name} className="flex h-16 min-w-0 items-center justify-center">
-                <img src={it.asset.url} alt={it.name} loading="lazy" decoding="async" className="h-9 w-auto max-w-[150px] object-contain sm:h-14 sm:max-w-[210px]" />
+                <img src={it.asset} alt={it.name} loading="lazy" decoding="async" className="h-9 w-auto max-w-[150px] object-contain sm:h-14 sm:max-w-[210px]" />
               </div>
             ))}
           </div>
