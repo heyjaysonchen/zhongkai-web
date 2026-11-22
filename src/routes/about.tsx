@@ -1,12 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowRight, Clock, Crosshair, Fingerprint, GitBranch, Layers, Mail, Network, QrCode, ShieldCheck, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useRef, useState } from "react";
+import { ArrowRight, Mail, QrCode } from "lucide-react";
+import { CardDialogTrigger } from "@/components/site/CardDialogTrigger";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import cube from "@/assets/images/about_hero_3d_city_soft_bokeh.png";
-import sceneData from "@/assets/images/scene_data_orchestration_v1.png";
-import sceneOntology from "@/assets/images/scene_ontology_graph_v1.png";
-import sceneAgent from "@/assets/images/scene_multi_agent_v1.png";
 import zhang from "@/assets/images/expert_zhang_portrait.jpg";
 import li from "@/assets/images/expert_li_portrait.jpg";
 import wang from "@/assets/images/expert_wang_portrait.jpg";
@@ -17,6 +15,7 @@ import sas from "@/assets/images/sas-logo-tight.png";
 import wechatQr from "@/assets/images/wechat-official-qrcode.jpg";
 
 const description = "众凯加速科技于 2023 年在北京设立，面向金融与央企做决策智能平台。释放数据要素价值，让每一次业务决策都信得过、可追溯、能执行。";
+const contactEmail = "contact@zhongkaitech.com.cn";
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [
     { title: "关于众凯加速科技 | 自主可控的决策智能" },
@@ -34,27 +33,18 @@ const experts = [
   { name: "李思涵", title: "行业专家", photo: li, background: ["北京大学人工智能博士", "SAS 前高级研究科学家"] },
   { name: "王建国", title: "AI 技术专家", photo: wang, background: ["IBM 前杰出工程师", "分布式系统与大数据专家"] },
 ];
-const capabilities = [
-  { title: "数据编排", en: "Data Orchestration", description: "打通多源异构数据，构建高质量、可控的数据流通体系。", asset: sceneData, tags: ["多源融合", "高质量数据", "可控流通"] },
-  { title: "本体知识图谱", en: "Ontology Knowledge Graph", description: "融合行业知识与大规模数据，构建可推理、可视化的知识体系。", asset: sceneOntology, tags: ["业务语义", "知识推理", "可视化"] },
-  { title: "多智能体协同", en: "Multi-Agent Synergy", description: "通过多智能体协作，实现复杂任务的规划、执行与自我进化。", asset: sceneAgent, tags: ["任务规划", "协同执行", "自我进化"] },
-];
-const principles = [
-  { title: "聚焦赛道", description: "只做金融与央国企场景，理解监管要求与业务语义，不做泛行业的通用方案。", Icon: Crosshair },
-  { title: "方法沉淀", description: "把每次交付沉淀为可复用的本体模型与语义资产，让能力持续复利而非重复建设。", Icon: GitBranch },
-  { title: "结果负责", description: "深入客户现场，交付可运行的生产级方案，对业务结果而非交付文档负责。", Icon: ShieldCheck },
-];
-const concerns = [
-  { title: "数据对齐", question: "数据能不能对齐成业务对象", Icon: Layers },
-  { title: "结论可溯", question: "结论能不能回到口径和来源", Icon: Fingerprint },
-  { title: "行动可控", question: "建议能不能落在事先约定的动作范围内", Icon: ShieldCheck },
-];
-type Detail = { type: "expert"; index: number } | { type: "capability"; index: number } | { type: "team" } | { type: "technology" };
+type Detail = { type: "expert"; index: number } | { type: "team" };
 
 function AboutPage() {
   const [detail, setDetail] = useState<Detail | null>(null);
+  const detailTrigger = useRef<HTMLButtonElement>(null);
   const selectedExpert = detail?.type === "expert" ? experts[detail.index] : undefined;
-  const selectedCapability = detail?.type === "capability" ? capabilities[detail.index] : undefined;
+
+  function openDetail(next: Detail, trigger: HTMLButtonElement) {
+    detailTrigger.current = trigger;
+    setDetail(next);
+  }
+
   return (
     <main className="about-page">
       <section className="about-hero" aria-labelledby="about-title">
@@ -82,45 +72,61 @@ function AboutPage() {
             </div>
           </div>
           <div className="min-w-0 about-team-col">
-            <div className="about-team-heading"><h2>创业团队</h2><Button variant="link" className="h-auto shrink-0 p-0 text-xs" onClick={() => setDetail({ type: "team" })}>查看更多 <ArrowRight aria-hidden="true" /></Button></div>
+            <div className="about-team-heading">
+              <h2>创业团队</h2>
+              <Button
+                type="button"
+                variant="link"
+                className="h-auto shrink-0 p-0 text-xs"
+                aria-haspopup="dialog"
+                onClick={(event) => openDetail({ type: "team" }, event.currentTarget)}
+              >
+                查看更多 <ArrowRight aria-hidden="true" />
+              </Button>
+            </div>
             <div className="about-experts">
-              {experts.map((expert, index) => <article key={expert.name} className="about-expert group">
-                <div className="about-portrait"><img src={expert.photo} alt={`${expert.name}博士肖像`} width={164} height={102} loading="lazy" decoding="async" /></div>
-                <div className="about-expert-copy"><h3>{expert.name}<span>博士</span></h3><p className="about-expert-role">{expert.title}</p><ul>{expert.background.map(line => <li key={line}>{line}</li>)}</ul><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`查看${expert.name}博士档案`} onClick={() => setDetail({ type: "expert", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div>
-              </article>)}
+              {experts.map((expert, index) => (
+                <article key={expert.name} className="about-expert interactive-card group">
+                  <div className="about-portrait"><img src={expert.photo} alt={`${expert.name}博士肖像`} width={164} height={102} loading="lazy" decoding="async" /></div>
+                  <div className="about-expert-copy">
+                    <h3>{expert.name}<span>博士</span></h3>
+                    <p className="about-expert-role">{expert.title}</p>
+                    <ul>{expert.background.map(line => <li key={line}>{line}</li>)}</ul>
+                  </div>
+                  <CardDialogTrigger
+                    label={`查看${expert.name}博士档案`}
+                    arrowClassName="about-card-arrow"
+                    onClick={(event) => openDetail({ type: "expert", index }, event.currentTarget)}
+                  />
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="about-capabilities-band" aria-labelledby="capabilities-title">
-        <div className="about-container">
-          <div className="about-capabilities-layout">
-            <div className="about-capabilities-intro"><p className="about-eyebrow">CORE CAPABILITIES</p><h2 id="capabilities-title">三大核心能力<br />驱动企业智能化跃迁</h2><p className="about-body">以数据为基，以知识为脉，以智能体为翼，众凯加速科技构建面向未来的企业智能底座。</p><Button className="mt-6 rounded-full px-6" onClick={() => setDetail({ type: "technology" })}>了解我们的技术 <ArrowRight aria-hidden="true" /></Button></div>
-            <div className="about-capabilities-grid">{capabilities.map((capability, index) => <article key={capability.title} className="about-capability group"><div className="about-capability-visual"><span>0{index + 1}</span><img src={capability.asset} alt={`${capability.title}三维科技场景图`} loading="lazy" decoding="async" width={1704} height={923} /></div><div className="about-capability-copy"><h3>{capability.title}</h3><p className="about-capability-en">{capability.en}</p><p className="about-body">{capability.description}</p><Button variant="ghost" size="icon" className="about-card-arrow text-primary" aria-label={`了解${capability.title}`} onClick={() => setDetail({ type: "capability", index })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button></div></article>)}</div>
-          </div>
-          <div className="about-values-row"><ul aria-label="企业价值">{[{ title: "全栈自主可控", en: "Independent & Controllable", Icon: ShieldCheck }, { title: "行业深度赋能", en: "Industry Empowerment", Icon: Layers }, { title: "可信安全体系", en: "Trusted & Secure", Icon: ShieldCheck }, { title: "开放生态共建", en: "Open Ecosystem", Icon: Network }].map(({ title, en, Icon }) => <li key={title}><Icon aria-hidden="true" /><div><strong>{title}</strong><span>{en}</span></div></li>)}</ul><blockquote><Sparkles className="h-4 w-4 shrink-0 text-primary/50" aria-hidden="true" /><div>让智能，真正服务于人类的创造力。<cite>— 众凯加速科技</cite></div></blockquote></div>
-        </div>
-      </section>
-
-      <section className="about-position-band" aria-labelledby="position-title">
-        <div className="about-container"><p className="about-eyebrow">OUR COMMITMENT · 我们的定位</p><h2 id="position-title">只做一件事，并把方法沉淀下来</h2><div className="about-position-grid">{principles.map(({ title, description: text, Icon }, index) => <article key={title} className="about-position-card"><div className="flex items-center justify-between"><span className="about-semantic-icon"><Icon aria-hidden="true" /></span><span className="text-sm font-medium text-primary/40">0{index + 1}</span></div><h3>{title}</h3><p className="about-body">{text}</p></article>)}</div><div className="about-concerns-heading"><h3>我们关心三件事</h3><p>从业务对象到业务行动，让智能始终有据可循。</p></div><div className="about-concerns-grid">{concerns.map(({ title, question, Icon }) => <article className="about-concern-card" key={title}><Icon aria-hidden="true" /><div><h4>{title}</h4><p>{question}</p></div></article>)}</div></div>
-      </section>
       <section className="about-quote-band"><div className="about-container"><p className="about-eyebrow">众凯决策智能平台</p><blockquote>真正意义上的数字化，不是把报表搬到屏幕上，<br className="hidden md:block" />而是让每一次业务决策都<span className="text-primary">信得过、可追溯、能执行。</span></blockquote></div></section>
 
       <section className="about-contact-band" aria-labelledby="contact-title">
         <div className="about-container">
           <h2 id="contact-title" className="about-contact-heading">联系我们</h2>
           <div className="about-contact-grid">
-            <article className="about-contact-card">
+            <a
+              className="about-contact-card interactive-card group transition-[border-color,box-shadow]"
+              href={`mailto:${contactEmail}`}
+              aria-label={`发送邮件至 ${contactEmail}`}
+            >
               <span className="about-semantic-icon"><Mail aria-hidden="true" /></span>
               <p className="about-contact-label">商务邮箱</p>
-              <a className="about-contact-value" href="mailto:contact@zhongkaitech.com.cn">contact@zhongkaitech.com.cn</a>
+              <p className="about-contact-value">{contactEmail}</p>
               <p className="about-contact-copy">产品咨询、方案交流与合作洽谈，均可通过邮件沟通。我们会在收到邮件后尽快回复。</p>
-              <Button asChild variant="outline" className="mt-auto rounded-full px-6 font-medium">
-                <a href="mailto:contact@zhongkaitech.com.cn">发送邮件 <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" /></a>
-              </Button>
-            </article>
+              <span className={buttonVariants({
+                variant: "outline",
+                className: "mt-auto rounded-full px-6 group-hover:bg-accent group-hover:text-accent-foreground group-focus-visible:bg-accent group-focus-visible:text-accent-foreground",
+              })}>
+                发送邮件 <ArrowRight className="ml-1" aria-hidden="true" />
+              </span>
+            </a>
             <article className="about-contact-card about-contact-card-wechat">
               <div className="min-w-0">
                 <span className="about-semantic-icon"><QrCode aria-hidden="true" /></span>
@@ -131,19 +137,22 @@ function AboutPage() {
               <div className="about-contact-qr"><img src={wechatQr} alt="众凯加速科技官方微信公众号二维码" width={128} height={128} loading="lazy" decoding="async" /><span>扫码关注</span></div>
             </article>
           </div>
-          <div className="about-contact-bar">
-            <p><Clock aria-hidden="true" />工作时间：周一至周五 09:00 - 18:00</p>
-            <p><ShieldCheck aria-hidden="true" />邮件沟通便于留档，适合正式事项对接</p>
-          </div>
         </div>
       </section>
 
-      <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}><DialogContent className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"><DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : selectedCapability?.title ?? (detail?.type === "team" ? "创业团队" : "三大核心能力底座")}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : selectedCapability ? selectedCapability.description : detail?.type === "team" ? "产学研深度融合，连接前沿科研与生产级工程实践。" : "以数据为基，以知识为脉，以智能体为翼。"}</DialogDescription></DialogHeader>
+      <Dialog open={detail !== null} onOpenChange={open => { if (!open) setDetail(null); }}>
+        <DialogContent
+          className="max-h-[85svh] overflow-y-auto rounded-lg sm:max-w-2xl"
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            detailTrigger.current?.focus({ preventScroll: true });
+          }}
+        >
+          <DialogHeader><DialogTitle>{selectedExpert ? `${selectedExpert.name}博士 · ${selectedExpert.title}` : "创业团队"}</DialogTitle><DialogDescription>{selectedExpert ? "学术深度与企业级实战的双轨背景" : "产学研深度融合，连接前沿科研与生产级工程实践。"}</DialogDescription></DialogHeader>
         {selectedExpert && <div className="flex flex-col gap-6 sm:flex-row"><div className="about-portrait w-full shrink-0 rounded-lg sm:w-52"><img src={selectedExpert.photo} alt={`${selectedExpert.name}博士肖像`} /></div><ul className="space-y-3 self-center text-sm leading-7">{selectedExpert.background.map(line => <li key={line}>{line}</li>)}</ul></div>}
         {detail?.type === "team" && <div className="space-y-5">{experts.map(expert => <div key={expert.name} className="border-b border-border pb-5 last:border-0"><h3 className="font-semibold">{expert.name}博士 · {expert.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{expert.background.join(" · ")}</p></div>)}</div>}
-        {selectedCapability && <div className="flex flex-col items-center gap-5 sm:flex-row"><img src={selectedCapability.asset} alt={selectedCapability.title} className="aspect-[1704/923] w-full max-w-sm rounded-md object-cover" /><ul className="space-y-3 text-sm">{selectedCapability.tags.map(tag => <li className="flex items-center gap-2" key={tag}><ShieldCheck className="h-4 w-4 text-primary" />{tag}</li>)}</ul></div>}
-        {detail?.type === "technology" && <div className="space-y-4">{capabilities.map(capability => <div key={capability.title} className="flex items-center gap-4 border-b border-border pb-4 last:border-0"><img src={capability.asset} alt={capability.title} className="aspect-[1704/923] w-32 shrink-0 rounded object-cover" /><div><h3 className="font-semibold">{capability.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{capability.description}</p></div></div>)}</div>}
-      </DialogContent></Dialog>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

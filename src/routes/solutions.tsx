@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, CircleAlert, FileSearch, ShieldCheck, TrendingUp, Check, ChevronRight } from "lucide-react";
 import architecture from "@/assets/images/solutions_hero_architecture.png";
+import { CardDialogTrigger } from "@/components/site/CardDialogTrigger";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { industrySolutions, type IndustrySolution, type SolutionCapability } from "@/components/site/solution-content";
@@ -24,6 +25,13 @@ type SelectedDetail = { solution: IndustrySolution; capability?: SolutionCapabil
 
 function SolutionsPage() {
   const [selected, setSelected] = useState<SelectedDetail | null>(null);
+  const detailTrigger = useRef<HTMLButtonElement>(null);
+
+  function openDetail(next: SelectedDetail, trigger: HTMLButtonElement) {
+    detailTrigger.current = trigger;
+    setSelected(next);
+  }
+
   return (
     <main>
       <section className="solutions-hero overflow-hidden pb-10 pt-28 lg:pb-8 lg:pt-32">
@@ -34,8 +42,7 @@ function SolutionsPage() {
           </nav>
           <div className="mt-6 grid items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-6">
             <div>
-              <h1 className="text-3xl font-bold leading-snug text-foreground sm:text-4xl lg:text-[42px]">金融与央国企决策场景</h1>
-              <p className="mt-3 text-xs font-medium text-muted-foreground">INDUSTRY SOLUTIONS</p>
+              <h1 className="text-3xl font-bold leading-snug text-foreground sm:text-4xl lg:text-[42px]">金融与央国企AI解决方案</h1>
               <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">用同一套企业超级智能大脑，解决金融与央国企决策难题，实现存量软件平滑国产替换。</p>
               <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-xs text-muted-foreground" aria-label="方案价值">
                 {[
@@ -45,7 +52,7 @@ function SolutionsPage() {
                 ].map(({ Icon, title }) => <li key={title} className="flex items-center gap-2"><Icon className="h-4 w-4 text-primary" aria-hidden="true" />{title}</li>)}
               </ul>
             </div>
-            <img src={architecture} alt="企业应用、AI 与代码迁移引擎、统一数据底座组成的三层解决方案架构" width="987" height="721" fetchPriority="high" className="mx-auto block h-auto w-full max-w-[460px] object-contain" />
+            <img src={architecture} alt="企业应用、核心 AI 与代码转译引擎、统一数据底座组成的三层解决方案架构" width="1536" height="1120" fetchPriority="high" className="mx-auto block h-auto w-full max-w-[460px] object-contain" />
           </div>
         </div>
       </section>
@@ -62,7 +69,16 @@ function SolutionsPage() {
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{solution.description}</p>
                   </div>
                 </div>
-                <Button variant="link" className="ml-[68px] shrink-0 px-0 sm:ml-0" aria-label={`了解更多：${solution.title}`} onClick={() => setSelected({ solution })}>了解更多 <ArrowRight aria-hidden="true" /></Button>
+                <Button
+                  type="button"
+                  variant="link"
+                  className="ml-[68px] shrink-0 px-0 sm:ml-0"
+                  aria-label={`了解更多：${solution.title}`}
+                  aria-haspopup="dialog"
+                  onClick={(event) => openDetail({ solution }, event.currentTarget)}
+                >
+                  了解更多 <ArrowRight aria-hidden="true" />
+                </Button>
               </div>
               <div className="grid items-stretch gap-5 lg:grid-cols-[270px_1fr]">
                 <aside className="rounded-lg bg-challenge px-5 py-5" aria-label={`${solution.title}业务痛点`}>
@@ -75,11 +91,15 @@ function SolutionsPage() {
                   <p className="mb-4 rounded-md bg-brand-soft px-4 py-3 text-sm font-semibold leading-6 text-primary sm:text-base">{solution.outcome}</p>
                   <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                     {solution.capabilities.map((capability) => (
-                      <article key={capability.title} className="solution-capability group flex min-w-0 flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/40">
+                      <article key={capability.title} className="solution-capability interactive-card group flex min-w-0 flex-col rounded-lg border border-border bg-card p-4 transition-[border-color,box-shadow]">
                         <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-soft text-primary"><capability.Icon className="h-6 w-6" strokeWidth={1.7} aria-hidden="true" /></div>
                         <h3 className="text-sm font-semibold leading-6">{capability.title}</h3>
                         <p className="mb-3 mt-2 flex-1 text-xs leading-6 text-muted-foreground">{capability.description}</p>
-                        <Button variant="ghost" size="icon" className="-ml-2 text-primary" aria-label={`查看${capability.title}`} onClick={() => setSelected({ solution, capability })}><ArrowRight className="transition-transform motion-safe:group-hover:translate-x-1" aria-hidden="true" /></Button>
+                        <CardDialogTrigger
+                          label={`查看${capability.title}`}
+                          arrowClassName="-ml-2"
+                          onClick={(event) => openDetail({ solution, capability }, event.currentTarget)}
+                        />
                       </article>
                     ))}
                   </div>
@@ -90,15 +110,14 @@ function SolutionsPage() {
         </div>
       </div>
 
-      <section className="solutions-cta border-y border-primary/10 py-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-7 px-6 md:flex-row md:items-center">
-          <div><h2 className="text-2xl font-bold leading-snug sm:text-3xl">统一底座，驱动行业决策升级</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">用 AI 重构数据价值，让更好的决策，创造更大的社会价值。</p></div>
-          <Button asChild size="lg" className="h-12 shrink-0"><Link to="/contact">预约专属行业方案演示 <ArrowRight aria-hidden="true" /></Link></Button>
-        </div>
-      </section>
-
       <Dialog open={selected !== null} onOpenChange={(open) => { if (!open) setSelected(null); }}>
-        <DialogContent className="max-h-[85svh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-lg p-6 sm:p-8">
+        <DialogContent
+          className="max-h-[85svh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-lg p-6 sm:p-8"
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            detailTrigger.current?.focus({ preventScroll: true });
+          }}
+        >
           {selected && <>
             <DialogHeader className="pr-6 text-left">
               <p className="mb-2 text-xs font-medium text-primary">{selected.solution.title}</p>
@@ -110,7 +129,6 @@ function SolutionsPage() {
               <h3 className="mb-4 text-sm font-semibold">实施路径</h3>
               <ol className="space-y-4">{selected.solution.delivery.map((step, index) => <li key={step.title} className="flex gap-3"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-soft text-xs font-semibold text-primary">{index + 1}</span><div><h4 className="text-sm font-semibold">{step.title}</h4><p className="mt-1 text-xs leading-6 text-muted-foreground">{step.description}</p></div></li>)}</ol>
             </div>
-            <Button asChild className="mt-4 justify-self-start"><Link to="/contact">咨询行业方案 <ArrowRight aria-hidden="true" /></Link></Button>
           </>}
         </DialogContent>
       </Dialog>

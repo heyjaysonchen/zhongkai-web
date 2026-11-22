@@ -51,8 +51,8 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <Link to="/contact" className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary/90">
-          预约演示
+        <Link to="/products" className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary/90">
+          了解产品
         </Link>
       </div>
     </header>

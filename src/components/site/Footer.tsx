@@ -12,7 +12,7 @@ const cols = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto grid max-w-6xl items-start gap-10 px-6 py-14 md:grid-cols-[1.4fr_1.7fr_0.9fr]">
+      <div className="mx-auto grid max-w-6xl items-start gap-10 px-6 py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.85fr)]">
         <div className="space-y-5">
           <Brand />
           <p className="text-sm text-muted-foreground">人工智能大模型与决策智能提供商</p>
@@ -21,7 +21,7 @@ export function SiteFooter() {
             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" />contact@zhongkaitech.com.cn</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-2 items-start gap-6 sm:grid-cols-[repeat(3,minmax(0,1fr))_auto]">
           {cols.map((c) => (
             <div key={c.title}>
               <h4 className="mb-3 text-sm font-semibold text-foreground">{c.title}</h4>
@@ -34,17 +34,17 @@ export function SiteFooter() {
               </ul>
             </div>
           ))}
-        </div>
-        <div className="flex flex-col items-center text-center md:items-start md:text-left">
-          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
-            <img src={wechatQr} alt="众凯加速科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
+          <div className="flex w-fit flex-col items-center text-center sm:justify-self-end">
+            <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-card">
+              <img src={wechatQr} alt="众凯加速科技官方微信公众号二维码" className="h-full w-full object-cover" width={96} height={96} />
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">欢迎关注公众号</p>
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">欢迎关注公众号</p>
         </div>
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-6 py-5 text-xs text-muted-foreground">
-          <span>© 2026 众凯加速科技（北京）有限公司 版权所有</span>
+          <span>© 2026 北京众凯加速科技发展有限公司 版权所有</span>
           <a
             href="https://beian.miit.gov.cn"
             target="_blank"
