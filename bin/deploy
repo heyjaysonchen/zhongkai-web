@@ -9,7 +9,7 @@ if ! { [ "$port" -ge 1 ] && [ "$port" -le 65535 ]; } 2>/dev/null; then
   exit 2
 fi
 bind_address=${BIND_ADDRESS:-0.0.0.0}
-image=zhongkai-web:local
+image=zhongkai-web:release
 name=zhongkai-web-$port
 
 docker build --tag "$image" \

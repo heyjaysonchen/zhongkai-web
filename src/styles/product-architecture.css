@@ -1,0 +1,186 @@
+.dip-architecture {
+  --arch-border: color-mix(in oklab, var(--primary) 16%, var(--card));
+  --arch-wire: color-mix(in oklab, var(--primary) 70%, var(--card));
+  --arch-grid: color-mix(in oklab, var(--primary) 5%, transparent);
+  --arch-foundation-gap: clamp(0.625rem, 1.4vw, 1.125rem);
+  padding-block: clamp(1.5rem, 3.2vw, 3rem);
+  background:
+    linear-gradient(var(--arch-grid) 1px, transparent 1px) center / 26px 26px,
+    linear-gradient(90deg, var(--arch-grid) 1px, transparent 1px) center / 26px 26px,
+    linear-gradient(120deg, var(--brand-soft), var(--surface) 72%);
+}
+
+.dip-arch-layer {
+  display: grid;
+  gap: 0.875rem;
+  align-items: center;
+  padding: clamp(0.875rem, 1.5vw, 1.375rem);
+  border: 1px solid var(--arch-border);
+  border-radius: 0.75rem;
+  background: var(--card);
+  box-shadow: var(--dip-shadow);
+}
+
+.dip-arch-layer-title {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.625rem, 1.2vw, 1rem);
+  padding-block-end: 0.875rem;
+  border-block-end: 1px solid var(--arch-border);
+}
+
+.dip-arch-symbol {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: clamp(2.625rem, 4.25vw, 3.375rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--arch-border);
+  border-radius: 0.65rem;
+  background: color-mix(in oklab, var(--brand-soft) 70%, var(--card));
+  color: var(--primary);
+}
+
+.dip-arch-symbol svg {
+  width: 52%;
+  height: 52%;
+  stroke-width: 1.65;
+}
+
+.dip-arch-engine {
+  border-color: var(--primary);
+  background: linear-gradient(
+    105deg,
+    var(--brand-soft),
+    color-mix(in oklab, var(--brand-soft) 48%, var(--card))
+  );
+}
+
+.dip-arch-engine .dip-arch-symbol {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.dip-arch-steps {
+  --step-gap: 0.75rem;
+  display: grid;
+  gap: var(--step-gap);
+  background: linear-gradient(var(--arch-wire), var(--arch-wire)) center / 1px 100% no-repeat;
+}
+
+.dip-arch-steps > li + li::before {
+  content: "";
+  position: absolute;
+  top: calc(-1px - var(--step-gap) / 2);
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--arch-wire);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: inset 0 0 0 1.5px var(--card);
+  transform: translate(-50%, -50%);
+}
+
+.dip-arch-interface {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(3rem, 4.5vw, 3.75rem);
+}
+
+.dip-arch-interface::before,
+.dip-arch-interface::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+}
+
+.dip-arch-interface::before {
+  inset-block: 0;
+  width: 1.5px;
+  background: var(--arch-wire);
+  transform: translateX(-50%);
+}
+
+.dip-arch-interface::after {
+  top: 1px;
+  width: 7px;
+  height: 7px;
+  border-top: 1.5px solid var(--arch-wire);
+  border-left: 1.5px solid var(--arch-wire);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.dip-arch-branch {
+  display: none;
+}
+
+.dip-arch-foundations {
+  display: grid;
+  padding-inline: 0.875rem;
+  border: 1px solid var(--arch-border);
+  border-radius: 0.75rem;
+  background: var(--card);
+}
+
+.dip-arch-foundations > li {
+  padding-block: 0.75rem;
+}
+.dip-arch-foundations > li + li {
+  border-top: 1px solid var(--arch-border);
+}
+
+@media (min-width: 40rem) {
+  .dip-arch-steps {
+    --step-gap: clamp(0.875rem, 1.8vw, 1.75rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    background-size: 100% 1px;
+  }
+
+  .dip-arch-steps > li + li::before {
+    top: 50%;
+    left: calc(-1px - var(--step-gap) / 2);
+  }
+
+  .dip-arch-foundations {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--arch-foundation-gap);
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .dip-arch-foundations > li {
+    padding: clamp(0.875rem, 1.6vw, 1.375rem);
+    border: 1px solid var(--arch-border);
+    border-radius: 0.75rem;
+    background: var(--card);
+    box-shadow: var(--dip-shadow);
+  }
+
+  .dip-arch-branch {
+    display: block;
+    position: absolute;
+    inset-block: 50% 0;
+    /* Terminate at the centers of the two outer foundation cards. */
+    inset-inline: calc((100% - 2 * var(--arch-foundation-gap)) / 6);
+    border: 1.5px solid var(--arch-wire);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+  }
+}
+
+@media (min-width: 64rem) {
+  .dip-arch-layer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    gap: 1.25rem;
+  }
+
+  .dip-arch-layer-title {
+    padding: 0 0.875rem 0 0;
+    border-block-end: 0;
+    border-inline-end: 1px solid var(--arch-border);
+  }
+}

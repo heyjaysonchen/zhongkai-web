@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
 const platformOverview = {
   en: "PLATFORM OVERVIEW",
   title: "给企业装上一个懂业务的超级智能大脑",
-  desc: "众凯企业 AI 平台，以数据编排为起点，通过本体建模构建业务知识图谱，最终实现智能体协同，打造可落地、可治理、可持续的企业级 AI 能力。",
+  desc: "众凯AI决策智能平台，以数据编排为起点，通过本体建模构建业务知识图谱，最终实现智能体协同，打造可落地、可治理、可持续的企业级 AI 能力。",
 };
 
 function SectionHead({ en, title, desc }: { en?: string; title: string; desc?: string }) {

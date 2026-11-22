@@ -4,8 +4,15 @@ import { Brand } from "./Header";
 import wechatQr from "@/assets/images/wechat-official-qrcode.jpg";
 
 const cols = [
-  { title: "产品", items: [["数据编排", "/products"], ["本体建模", "/products"], ["智能体协同", "/products"]] },
-  { title: "解决方案", items: [["金融 AI", "/solutions"], ["SAS 国产替换", "/solutions"], ["央国企 AI", "/solutions"]] },
+  {
+    title: "产品",
+    items: [
+      ["数据编排", "/products", "data-fabric"],
+      ["本体建模", "/products", "ontology-modeling"],
+      ["智能体协同", "/products", "multi-agent-synergy"],
+    ],
+  },
+  { title: "解决方案", items: [["金融 AI", "/solutions", "finance"], ["SAS 国产替换", "/solutions", "sas-migration"], ["央国企 AI", "/solutions", "central-soe"]] },
   { title: "关于我们", items: [["公司介绍", "/about"]] },
 ] as const;
 
@@ -15,7 +22,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl items-start gap-10 px-6 py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.85fr)]">
         <div className="space-y-5">
           <Brand />
-          <p className="text-sm text-muted-foreground">人工智能大模型与决策智能提供商</p>
+          <p className="text-sm text-muted-foreground">企业AI解决方案提供商</p>
           <div className="space-y-3 text-sm text-muted-foreground">
             <p className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />北京市东城区北三环东路36号·环球贸易中心E座3F</p>
             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" />contact@zhongkaitech.com.cn</p>
@@ -26,9 +33,15 @@ export function SiteFooter() {
             <div key={c.title}>
               <h4 className="mb-3 text-sm font-semibold text-foreground">{c.title}</h4>
               <ul className="space-y-2">
-                {c.items.map(([l, to]) => (
-                  <li key={l}>
-                    <Link to={to} className="text-sm text-muted-foreground transition-colors duration-300 hover:text-primary">{l}</Link>
+                {c.items.map(([label, to, hash]) => (
+                  <li key={label}>
+                    <Link
+                      to={to}
+                      {...(hash ? { hash, hashScrollIntoView: { block: "start" } } : {})}
+                      className="text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
+                    >
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>

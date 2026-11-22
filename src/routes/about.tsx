@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { ArrowRight, Mail, QrCode } from "lucide-react";
 import { CardDialogTrigger } from "@/components/site/CardDialogTrigger";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import cube from "@/assets/images/about_hero_3d_city_soft_bokeh.png";
 import zhang from "@/assets/images/expert_zhang_portrait.jpg";
@@ -111,22 +111,12 @@ function AboutPage() {
         <div className="about-container">
           <h2 id="contact-title" className="about-contact-heading">联系我们</h2>
           <div className="about-contact-grid">
-            <a
-              className="about-contact-card interactive-card group transition-[border-color,box-shadow]"
-              href={`mailto:${contactEmail}`}
-              aria-label={`发送邮件至 ${contactEmail}`}
-            >
+            <article className="about-contact-card">
               <span className="about-semantic-icon"><Mail aria-hidden="true" /></span>
               <p className="about-contact-label">商务邮箱</p>
-              <p className="about-contact-value">{contactEmail}</p>
+              <a className="about-contact-value" href={`mailto:${contactEmail}`}>{contactEmail}</a>
               <p className="about-contact-copy">产品咨询、方案交流与合作洽谈，均可通过邮件沟通。我们会在收到邮件后尽快回复。</p>
-              <span className={buttonVariants({
-                variant: "outline",
-                className: "mt-auto rounded-full px-6 group-hover:bg-accent group-hover:text-accent-foreground group-focus-visible:bg-accent group-focus-visible:text-accent-foreground",
-              })}>
-                发送邮件 <ArrowRight className="ml-1" aria-hidden="true" />
-              </span>
-            </a>
+            </article>
             <article className="about-contact-card about-contact-card-wechat">
               <div className="min-w-0">
                 <span className="about-semantic-icon"><QrCode aria-hidden="true" /></span>
