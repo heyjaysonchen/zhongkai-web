@@ -7,7 +7,7 @@ const cols = [
   {
     title: "产品",
     items: [
-      ["数据编排", "/products", "data-fabric"],
+      ["数据编织", "/products", "data-fabric"],
       ["本体建模", "/products", "ontology-modeling"],
       ["智能体协同", "/products", "multi-agent-synergy"],
     ],

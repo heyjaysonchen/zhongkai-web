@@ -50,7 +50,7 @@ export const Route = createFileRoute("/products")({
 
 const workflow = [
   { title: "数据接入", Icon: Database, text: "多源异构数据汇聚", sub: "实时流与批处理适配" },
-  { title: "数据编排", Icon: GitBranch, text: "统一数据标准与清洗", sub: "主动发现与质量度量" },
+  { title: "数据编织", Icon: GitBranch, text: "统一数据标准与清洗", sub: "主动发现与质量度量" },
   { title: "本体建模", Icon: Boxes, text: "业务概念与对象建模", sub: "统一语义与知识沉淀" },
   { title: "关系构建", Icon: Share2, text: "跨域实体网络连接", sub: "深层多跳关联推理" },
   { title: "智能体编排", Icon: Bot, text: "多 Agent 协同执行", sub: "业务自主决策引擎" },
@@ -59,7 +59,7 @@ const architecture = {
   collaboration: [
     { title: "意图感知问数", detail: "业务意图理解" },
     { title: "多维归因下钻", detail: "异动根因定位" },
-    { title: "动态决策研报", detail: "深度研报生成" },
+    { title: "动态决策研判", detail: "智能报告生成" },
     { title: "协同行动闭环", detail: "业务指令触发" },
   ],
   reasoning: [
@@ -250,7 +250,7 @@ function PlatformArchitecture() {
                 PLATFORM ARCHITECTURE
               </p>
               <h2 id="architecture-title" className="text-2xl leading-tight font-bold lg:text-3xl">
-                众凯AI决策平台架构
+                众凯AI决策智能平台架构
               </h2>
             </div>
             <p className="inline-flex items-center gap-2 rounded-lg border border-primary/15 bg-brand-soft/65 px-3 py-1.5 text-xs font-semibold text-primary">
@@ -400,7 +400,7 @@ function ProductsPage() {
         <div className="dip-section-heading"><p className="dip-eyebrow">CORE PRODUCT CAPABILITIES</p><h2 id="capabilities-title">三大核心产品能力</h2><p>从可信数据到可执行决策，构建企业智能引擎</p></div>
         <div className="dip-capability-grid">
           <article {...capabilityTarget("data-fabric")}>
-            <CapabilityHeading number="01" title="数据编织系统" en="DATA FABRIC SYSTEM">
+            <CapabilityHeading number="01" title="数据编织" en="DATA FABRIC">
               打造企业级自适应数据互联底座，融合主动元数据与统一语义网，赋能多智能体协同与决策智能。
             </CapabilityHeading>
             <DataFabricContent />

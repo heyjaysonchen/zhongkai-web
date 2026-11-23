@@ -1,65 +1,53 @@
 #!/bin/sh
-# Run ./bin/deploy from the project root. Optionally set HOST_PORT or BIND_ADDRESS.
+# Optional overrides: HTTPS_CERT_DIR, HOST_PORT, and BIND_ADDRESS.
 set -eu
 cd -- "$(dirname -- "$0")/.."
 
 port=${HOST_PORT:-8113}
+case "$port" in
+  *[!0-9]*) port=0 ;;
+esac
 if ! { [ "$port" -ge 1 ] && [ "$port" -le 65535 ]; } 2>/dev/null; then
   printf 'HOST_PORT 应为 1 到 65535 之间的端口号。\n' >&2
   exit 2
 fi
-bind_address=${BIND_ADDRESS:-0.0.0.0}
-image=zhongkai-web:release
-name=zhongkai-web-$port
+export HOST_PORT="$port"
 
-docker build --tag "$image" \
-  --build-arg VITE_SUPABASE_URL \
-  --build-arg VITE_SUPABASE_PUBLISHABLE_KEY .
-
-# Reserve the replacement name before touching the running site.
-next_id=$(docker create --name "$name-next" --restart unless-stopped \
-  --publish "$bind_address:$port:8113" "$image")
-backup_id=
-was_running=false
-rollback() {
-  docker stop "$next_id" >/dev/null || true
-  if [ -n "$backup_id" ]; then
-    docker rename "$backup_id" "$name"
-    if [ "$was_running" = true ]; then docker start "$backup_id" >/dev/null; fi
-  fi
-  docker rm "$next_id" >/dev/null
+compose() {
+  docker compose -f docker-compose.yml "$@"
 }
-trap rollback EXIT
+
+compose config --quiet
+compose build app
+compose run --rm --no-deps nginx nginx -t
+
+# The previous deployment published this port from a standalone container.
+legacy_name=zhongkai-web-$port
+legacy_id=$(docker container ls --quiet --filter "name=^/${legacy_name}$")
+legacy_stopped=false
+restore_legacy() {
+  if [ "$legacy_stopped" = true ]; then
+    compose stop nginx app >&2 || true
+    docker start "$legacy_id" >&2 || printf '旧容器 %s 恢复失败。\n' "$legacy_name" >&2
+  fi
+}
+trap restore_legacy EXIT
 trap 'exit 1' HUP INT TERM
 
-old_id=$(docker container ls --all --quiet --filter "name=^/${name}$")
-if [ -n "$old_id" ]; then
-  if [ "$(docker inspect --format '{{.Config.Image}}' "$old_id")" != "$image" ]; then
-    printf '容器名 %s 已被其他镜像占用，请检查容器或设置 HOST_PORT。\n' "$name" >&2
+if [ -n "$legacy_id" ]; then
+  legacy_image=$(docker inspect --format '{{.Config.Image}}' "$legacy_id")
+  if [ "$legacy_image" != 'zhongkai-web:release' ]; then
+    printf '容器名 %s 已被镜像 %s 占用，请检查容器或设置 HOST_PORT。\n' "$legacy_name" "$legacy_image" >&2
     exit 1
   fi
-  was_running=$(docker inspect --format '{{.State.Running}}' "$old_id")
-  docker rename "$old_id" "$name-old-$old_id"
-  backup_id=$old_id
-  if [ "$was_running" = true ]; then docker stop "$old_id" >/dev/null; fi
+  docker stop "$legacy_id" >/dev/null
+  legacy_stopped=true
 fi
 
-docker start "$next_id" >/dev/null
-attempt=1
-until docker exec "$next_id" node -e '
-  fetch("http://127.0.0.1:8113/", { signal: AbortSignal.timeout(2000) })
-    .then(r => process.exit(r.status === 200 ? 0 : 1), () => process.exit(1))'
-do
-  if [ "$attempt" -ge 10 ]; then
-    printf '首页健康检查失败，容器日志如下。\n' >&2
-    docker logs --tail 20 "$next_id" >&2
-    exit 1
-  fi
-  sleep 1
-  attempt=$((attempt + 1))
-done
+if ! compose up -d --no-build --force-recreate --wait --wait-timeout 90; then
+  compose logs --tail 30 >&2 || true
+  exit 1
+fi
 
-docker rename "$next_id" "$name"
 trap - EXIT HUP INT TERM
-if [ -n "$backup_id" ]; then docker rm "$backup_id" >/dev/null; fi
-printf '部署成功，容器 %s 已就绪，HTTP 端口 %s。\n' "$name" "$port"
+printf '部署成功，HTTP 端口 %s，HTTPS 端口 443。\n' "$port"

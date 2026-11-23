@@ -62,11 +62,19 @@ npm run dev
 
 ## 部署 Docker 应用
 
-登录运行 Docker 的服务器，从项目根目录部署应用并检查首页。
+在服务器的项目根目录运行 `./bin/deploy`。脚本用 `docker-compose.yml` 构建并启动应用和 Nginx，等到两个服务通过健康检查后才报告部署成功。
+
+- `http://zhongkaitech.com.cn:8113` 直连应用。默认绑定 `0.0.0.0`，可用 `HOST_PORT` 和 `BIND_ADDRESS` 调整宿主机的端口和绑定地址。
+- `https://zhongkaitech.com.cn` 访问 Nginx 的 `443`。Nginx 使用根目录的 `nginx.conf`，通过 Compose 内部网络转发到 `app:8113`。宿主机的 `80` 端口不参与部署。
+
+将域名指向服务器，确保公网 TCP `443` 和 `8113` 可访问。将与域名匹配的证书 `zhongkaitech-web.pem` 和私钥 `zhongkaitech-web.key` 放在服务器的 `/opt/zhongkai-web-certs` 目录。如果使用其他目录，可设置 `HTTPS_CERT_DIR`。如果证书文件是符号链接，链接目标也须在挂载目录内可读。
 
 ```sh
-BIND_ADDRESS=127.0.0.1 ./bin/deploy
-curl -I http://127.0.0.1:8113/
+./bin/deploy
+curl -I "http://zhongkaitech.com.cn:${HOST_PORT:-8113}/"
+curl -I https://zhongkaitech.com.cn/
 ```
 
-服务器负责安装 Nginx、配置域名和 HTTPS 证书，并将公网 `443` 的请求转发至 `http://127.0.0.1:8113`。如果部署时指定了 `HOST_PORT`，请同步调整检查和转发地址的端口。
+首次从旧版 `./bin/deploy` 迁移时，脚本会在构建及证书检查通过后停用占用同一端口的旧应用容器。迁移失败时会尝试恢复旧容器。若由另一套 Compose 项目管理的容器占用了 `443`，先在那套项目中释放该端口。
+
+证书更新后，使用 `docker compose -f docker-compose.yml exec nginx nginx -s reload` 重新加载。如果部署时覆盖了证书目录，重新加载时也要使用相同的 `HTTPS_CERT_DIR`。

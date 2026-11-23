@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
       { title: "众凯加速科技 | 企业 AI 解决方案" },
       { name: "description", content: "众凯把数据沉淀为统一底座，以智能体驱动全链路，为金融与央国企提供可信的 AI 解决方案。" },
       { property: "og:title", content: "众凯加速科技 | 企业 AI 解决方案" },
-      { property: "og:description", content: "数据编排、本体建模、智能体协同，为金融与央国企提供可信的 AI 解决方案。" },
+      { property: "og:description", content: "数据编织、本体建模、智能体协同，为金融与央国企提供可信的 AI 解决方案。" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
 const platformOverview = {
   en: "PLATFORM OVERVIEW",
   title: "给企业装上一个懂业务的超级智能大脑",
-  desc: "众凯AI决策智能平台，以数据编排为起点，通过本体建模构建业务知识图谱，最终实现智能体协同，打造可落地、可治理、可持续的企业级 AI 能力。",
+  desc: "众凯AI决策智能平台，以数据编织为起点，通过本体建模构建业务知识图谱，最终实现智能体协同，打造可落地、可治理、可持续的企业级 AI 能力。",
 };
 
 function SectionHead({ en, title, desc }: { en?: string; title: string; desc?: string }) {

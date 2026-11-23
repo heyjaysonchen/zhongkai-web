@@ -7,8 +7,8 @@ import sceneAgent from "@/assets/images/scene_multi_agent_v1.png";
 
 const capabilities = [
   {
-    title: "数据编排",
-    en: "Data Orchestration",
+    title: "数据编织",
+    en: "Data Fabric",
     description: "打通多源异构数据，构建统一数据底座，实现标准化与高质量治理。",
     asset: sceneData,
     hash: "data-fabric",

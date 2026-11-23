@@ -1,0 +1,51 @@
+services:
+  app:
+    image: zhongkai-web:release
+    build:
+      context: .
+      args:
+        - VITE_SUPABASE_URL
+        - VITE_SUPABASE_PUBLISHABLE_KEY
+    restart: unless-stopped
+    ports:
+      - "${BIND_ADDRESS:-0.0.0.0}:${HOST_PORT:-8113}:8113"
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - >-
+          fetch('http://127.0.0.1:8113/', { signal: AbortSignal.timeout(2000) })
+          .then(response => process.exit(response.status === 200 ? 0 : 1), () => process.exit(1))
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  nginx:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "443:443"
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${HTTPS_CERT_DIR:-/opt/zhongkai-web-certs}"
+        target: /etc/nginx/tls
+        read_only: true
+        bind:
+          create_host_path: false
+    healthcheck:
+      test: [CMD, wget, -q, --no-check-certificate, -T, '3', -O, /dev/null, 'https://127.0.0.1/']
+      interval: 3s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
