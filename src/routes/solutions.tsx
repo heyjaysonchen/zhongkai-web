@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { ArrowRight, CircleAlert, FileSearch, ShieldCheck, TrendingUp, Check, ChevronRight } from "lucide-react";
+import { ArrowRight, CircleAlert, FileSearch, ShieldCheck, TrendingUp, Check } from "lucide-react";
 import architecture from "@/assets/images/solutions_hero_architecture.png";
 import { CardDialogTrigger } from "@/components/site/CardDialogTrigger";
 import { Button } from "@/components/ui/button";
@@ -34,13 +34,9 @@ function SolutionsPage() {
 
   return (
     <main>
-      <section className="solutions-hero overflow-hidden pb-10 pt-28 lg:pb-8 lg:pt-32">
+      <section className="solutions-hero overflow-hidden pb-14 pt-30 lg:pb-20 lg:pt-40">
         <div className="mx-auto max-w-6xl px-6">
-          <nav aria-label="面包屑" className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Button asChild variant="link" className="h-auto p-0 text-xs text-muted-foreground"><Link to="/">首页</Link></Button>
-            <ChevronRight className="h-3 w-3" aria-hidden="true" /><span aria-current="page">解决方案</span>
-          </nav>
-          <div className="mt-6 grid items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-6">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-6">
             <div>
               <h1 className="text-3xl font-bold leading-snug text-foreground sm:text-4xl lg:text-[42px]">金融与央国企AI解决方案</h1>
               <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">用同一套企业超级智能大脑，解决金融与央国企决策难题，实现存量软件平滑国产替换。</p>

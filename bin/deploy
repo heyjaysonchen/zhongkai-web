@@ -18,7 +18,7 @@ compose() {
 }
 
 compose config --quiet
-compose build app
+compose build app nginx
 compose run --rm --no-deps nginx nginx -t
 
 # The previous deployment published this port from a standalone container.
@@ -50,4 +50,4 @@ if ! compose up -d --no-build --force-recreate --wait --wait-timeout 90; then
 fi
 
 trap - EXIT HUP INT TERM
-printf '部署成功，HTTP 端口 %s，HTTPS 端口 443。\n' "$port"
+printf '部署成功，应用直连端口 %s，Nginx HTTP 端口 80，HTTPS 端口 443。\n' "$port"

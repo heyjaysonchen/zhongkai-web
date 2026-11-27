@@ -138,16 +138,22 @@ function Index() {
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {experts.map((e) => (
-              <div key={e.t} className="rounded-2xl border border-border bg-card p-8 shadow-card">
+              <Link
+                key={e.t}
+                to="/about"
+                aria-label={`了解${e.t}`}
+                className="group relative block rounded-2xl border border-border bg-card p-8 shadow-card transition hover:border-primary/40 hover:shadow-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              >
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-primary"><e.I className="h-6 w-6" /></div>
-                  <h3 className="text-xl font-bold text-foreground">{e.t}</h3>
+                  <h3 className="flex-1 text-xl font-bold text-foreground">{e.t}</h3>
+                  <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 text-primary transition-transform motion-safe:group-hover:translate-x-1" />
                 </div>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{e.d}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {e.tags.map((t) => <span key={t} className="rounded-full bg-brand-soft px-3 py-1 text-xs text-primary">{t}</span>)}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

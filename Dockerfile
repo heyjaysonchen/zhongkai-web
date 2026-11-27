@@ -17,8 +17,8 @@ FROM node:22-bookworm-slim AS runtime
 WORKDIR /app
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
-    PORT=8113
+    PORT=80
 COPY --from=build /app/.output ./.output
 USER node
-EXPOSE 8113/tcp
+EXPOSE 80/tcp
 CMD ["node", ".output/server/index.mjs"]

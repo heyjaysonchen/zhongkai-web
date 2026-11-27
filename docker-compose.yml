@@ -8,14 +8,14 @@ services:
         - VITE_SUPABASE_PUBLISHABLE_KEY
     restart: unless-stopped
     ports:
-      - "${BIND_ADDRESS:-0.0.0.0}:${HOST_PORT:-8113}:8113"
+      - "${BIND_ADDRESS:-0.0.0.0}:${HOST_PORT:-8113}:80"
     healthcheck:
       test:
         - CMD
         - node
         - -e
         - >-
-          fetch('http://127.0.0.1:8113/', { signal: AbortSignal.timeout(2000) })
+          fetch('http://127.0.0.1:80/', { signal: AbortSignal.timeout(2000) })
           .then(response => process.exit(response.status === 200 ? 0 : 1), () => process.exit(1))
       interval: 3s
       timeout: 3s
@@ -23,12 +23,17 @@ services:
       start_period: 5s
 
   nginx:
-    image: nginx:stable-alpine
+    image: zhongkai-web-nginx
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM nginx:stable-alpine
     restart: unless-stopped
     depends_on:
       app:
         condition: service_healthy
     ports:
+      - "80:80"
       - "443:443"
     volumes:
       - type: bind
@@ -44,7 +49,11 @@ services:
         bind:
           create_host_path: false
     healthcheck:
-      test: [CMD, wget, -q, --no-check-certificate, -T, '3', -O, /dev/null, 'https://127.0.0.1/']
+      test:
+        - CMD-SHELL
+        - >-
+          wget -q -T 3 -O /dev/null http://127.0.0.1/ &&
+          wget -q --no-check-certificate -T 3 -O /dev/null https://127.0.0.1/
       interval: 3s
       timeout: 5s
       retries: 10

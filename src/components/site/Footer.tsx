@@ -13,7 +13,13 @@ const cols = [
     ],
   },
   { title: "解决方案", items: [["金融 AI", "/solutions", "finance"], ["SAS 国产替换", "/solutions", "sas-migration"], ["央国企 AI", "/solutions", "central-soe"]] },
-  { title: "关于我们", items: [["公司介绍", "/about"]] },
+  {
+    title: "关于我们",
+    items: [
+      ["公司介绍", "/about"],
+      ["核心团队", "/about", "team"],
+    ],
+  },
 ] as const;
 
 export function SiteFooter() {
